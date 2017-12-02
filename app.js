@@ -123,13 +123,6 @@ var ՐՏ_modules = {};
         return _reg_as(name_or_fun, "_vue_directive");
     }
     function v_watch(name_or_fun) {
-        var name;
-        if (name_or_fun instanceof Function) {
-            name = name_or_fun.name.split("$w_")[1];
-            if (name) {
-                return _reg_as(name, "_vue_watch")(name_or_fun);
-            }
-        }
         return _reg_as(name_or_fun, "_vue_watch");
     }
     function v_rstore_getter(name_or_fun) {
@@ -159,6 +152,9 @@ var ՐՏ_modules = {};
                     if (((ՐՏ_1 = to_obj[hash_name][reg_name]) === (ՐՏ_2 = void 0) || typeof ՐՏ_1 === "object" && ՐՏ_eq(ՐՏ_1, ՐՏ_2)) || redefine) {
                         if (hash_name === "watch" && reg_name instanceof Object) {
                             watcher_name = reg_name.name || from_obj[k].name;
+                            if (watcher_name.startsWith("$w_")) {
+                                watcher_name = watcher_name.substr(3);
+                            }
                             watcher_def = Object.assign({}, reg_name);
                             delete watcher_def.name;
                             watcher_def.handler = from_obj[k];
@@ -255,9 +251,9 @@ var ՐՏ_modules = {};
             super();
             var self = this;
             self.data = {
-                storage_key: storage_key || "todos-vuejs-2.0",
-                todos: null,
-                uid: 0
+                "storage_key": storage_key || "todos-vuejs-2.0",
+                "todos": null,
+                "uid": 0
             };
         }
         todos (todos) {
@@ -285,9 +281,9 @@ var ՐՏ_modules = {};
             value = value && value.trim();
             if (value) {
                 self.todos.push({
-                    id: self.uid,
-                    title: value,
-                    completed: false
+                    "id": self.uid,
+                    "title": value,
+                    "completed": false
                 });
                 ++self.uid;
                 return true;
@@ -304,15 +300,15 @@ var ՐՏ_modules = {};
         filters () {
             var self = this;
             return {
-                all: function() {
+                "all": function() {
                     return self.todos;
                 },
-                active: function() {
+                "active": function() {
                     return self.todos.filter(function(todo) {
                         return !todo.completed;
                     });
                 },
-                completed: function() {
+                "completed": function() {
                     return self.todos.filter(function(todo) {
                         return todo.completed;
                     });
@@ -328,7 +324,7 @@ var ՐՏ_modules = {};
                 enumerable: false, 
                 writable: true, 
                 value: v_watch({
-                    deep: true
+                    "deep": true
                 })(ՐՏ_4.prototype.todos)
             },
             load: {
@@ -387,23 +383,23 @@ var ՐՏ_modules = {};
             var self = this;
             self.template = '<!-- todos_templ --> <section class="todoapp">  <header class="header">  <h1>  todos  </h1>  <input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" @keyup.enter="addTodo" />  </header>  <section class="main" v-show="todos.length">  <input class="toggle-all" type="checkbox" v-model="allDone" />  <ul class="todo-list">  <li v-for="todo in filteredTodos" class="todo" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">  <div class="view">  <input class="toggle" type="checkbox" v-model="todo.completed" />  <label @dblclick="editTodo(todo)" v-text = \'todo.title\' />  <button class="destroy" @click="removeTodo(todo)" />  </div>  <input class="edit" type="text" v-model = "todo.title" v-todo-focus = "todo == editedTodo" @blur = "doneEdit(todo)" @keyup.enter = "doneEdit(todo)" @keyup.esc = "cancelEdit(todo)" />  </li>  </ul>  </section>  <footer class="footer" v-show="todos.length">  <span class="todo-count">  <strong v-text = \'remaining\' />  {{ remaining | pluralize }} left  </span>  <ul class="filters">  <li>  <a href = "#/all" :class="{ selected: visibility == \'all\' }">  All  </a>  </li>  <li>  <a href = "#/active" :class="{ selected: visibility == \'active\' }">  Active  </a>  </li>  <li>  <a href = "#/completed" :class="{ selected: visibility == \'completed\' }">  Completed  </a>  </li>  </ul>  <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">  Clear completed  </button>  </footer>  </section> ';
             self.props = {
-                todo_storage: Object,
-                visibility: {
-                    type: String,
-                    default: "all"
+                "todo_storage": Object,
+                "visibility": {
+                    "type": String,
+                    "default": "all"
                 }
             };
             self.computed.allDone = {
-                get: self.allDone_get,
-                set: self.allDone_set
+                "get": self.allDone_get,
+                "set": self.allDone_set
             };
         }
         _init_data () {
             var self = this;
             self.todo_storage.load();
             return {
-                newTodo: "",
-                editedTodo: null
+                "newTodo": "",
+                "editedTodo": null
             };
         }
         static TodoFocus (el, binding) {
