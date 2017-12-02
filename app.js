@@ -297,7 +297,7 @@ var ՐՏ_modules = {};
             var self = this;
             self.todos = self.filters.active();
         }
-        filters () {
+        ffilters () {
             var self = this;
             return {
                 "all": function() {
@@ -316,7 +316,7 @@ var ՐՏ_modules = {};
             };
         }
         static get_filter_names () {
-            return Object.keys(Todo_storage.prototype.filters());
+            return Object.keys(Todo_storage.prototype.ffilters());
         }
     }, (function(){
         Object.defineProperties(ՐՏ_4.prototype, {
@@ -352,10 +352,10 @@ var ՐՏ_modules = {};
                 writable: true, 
                 value: v_meth(ՐՏ_4.prototype.remove_completed)
             },
-            filters: {
+            ffilters: {
                 enumerable: false, 
                 writable: true, 
-                value: v_computed(ՐՏ_4.prototype.filters)
+                value: v_computed(ՐՏ_4.prototype.ffilters)
             }
         });
         ;
@@ -413,11 +413,11 @@ var ՐՏ_modules = {};
         }
         filteredTodos () {
             var self = this;
-            return self.todo_storage.filters[self.visibility]();
+            return self.todo_storage.ffilters[self.visibility]();
         }
         remaining () {
             var self = this;
-            return len(self.todo_storage.filters.active());
+            return len(self.todo_storage.ffilters.active());
         }
         allDone_get () {
             var self = this;
@@ -427,7 +427,7 @@ var ՐՏ_modules = {};
             var ՐՏitr5, ՐՏidx5;
             var self = this;
             var todo;
-            ՐՏitr5 = ՐՏ_Iterable(self.todo_storage.filters.all());
+            ՐՏitr5 = ՐՏ_Iterable(self.todo_storage.ffilters.all());
             for (ՐՏidx5 = 0; ՐՏidx5 < ՐՏitr5.length; ՐՏidx5++) {
                 todo = ՐՏitr5[ՐՏidx5];
                 todo.completed = value;
