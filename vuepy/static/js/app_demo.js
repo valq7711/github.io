@@ -1,4 +1,4 @@
-define(["vue","codemirror/lib/codemirror","jszip.min","rapydscript_web","axios.min"],function(Vue,CodeMirror,JSZip,rapydscript,axios){
+define(["vue","codemirror/lib/codemirror","jszip.min","rapydscript.web","axios.min"],function(Vue,CodeMirror,JSZip,rapydscript,axios){
 var exports = {};
 (function(){
 "use strict";
