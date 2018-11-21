@@ -1,0 +1,2290 @@
+
+<html>
+    <head>
+        <meta  charset = 'utf-8'/>
+        <link  rel = "stylesheet" type = "text/css" href = '../static/fonts/font-awesome.min.css'/>
+        <link  rel = "stylesheet" type = "text/css" href = '../static/css/base.css'/>
+        <link  rel = "stylesheet" type = "text/css" href = '../static/js/codemirror/lib/codemirror.css'/>
+        <link  rel = "stylesheet" type = "text/css" href = '../static/js/codemirror/addon/hint/show-hint.css'/>
+        <link  rel = "stylesheet" type = "text/css" href = '../static/js/codemirror/addon/dialog/dialog.css'/>
+        <style>
+            .explorer {
+                position: absolute;
+                background-color: white;
+                box-shadow: 0px 2px 5px gray;
+                padding:5px;
+                z-index: 100;
+                font-family : 'Roboto mono', monospace;
+            }
+            ul.doc_tabs{
+                background-color: #eee;
+            }
+            .doc_tabs>li{
+                display: inline-block;
+                margin-right: 5px;
+                background-color: white;
+                padding: 5px;
+                border: solid 1px lightgray;
+                cursor: pointer;
+            
+            }
+            .doc_tabs>li.active{
+                border-top: solid 8px #0c0;
+                border-bottom: solid 1px white;
+            }
+            .v-btn{
+                padding: 2px;
+                font-weight: 500;
+                font-size: 12pt;
+                margin: 3px 5px ;
+                box-shadow: 0px 1px 2px gray;
+                text-shadow: 0px 0px 1px #aaa;
+                cursor: pointer;
+            
+            }
+            
+        </style>
+        <script  type = "text/javascript">
+            (function(){
+            "use strict";
+            var ՐՏ_1, ՐՏ_30;
+            function ՐՏ_bind(fn, thisArg) {
+                var ret;
+                if (fn.orig) {
+                    fn = fn.orig;
+                }
+                if (thisArg === false) {
+                    return fn;
+                }
+                ret = function() {
+                    return fn.apply(thisArg, arguments);
+                };
+                ret.orig = fn;
+                return ret;
+            }
+            function ՐՏ_extends(child, parent) {
+                child.prototype = Object.create(parent.prototype);
+                child.prototype.__base__ = parent;
+                child.prototype.constructor = child;
+            }
+            function ՐՏ_in(val, arr) {
+                if (typeof arr.indexOf === "function") {
+                    return arr.indexOf(val) !== -1;
+                }
+                return arr.hasOwnProperty(val);
+            }
+            function ՐՏ_Iterable(iterable) {
+                var tmp;
+                if (iterable.constructor === [].constructor || iterable.constructor === "".constructor || (tmp = Array.prototype.slice.call(iterable)).length) {
+                    return tmp || iterable;
+                }
+                return Object.keys(iterable);
+            }
+            function len(obj) {
+                var tmp;
+                if (obj.constructor === [].constructor || obj.constructor === "".constructor || (tmp = Array.prototype.slice.call(obj)).length) {
+                    return (tmp || obj).length;
+                }
+                return Object.keys(obj).length;
+            }
+            function ՐՏ_print() {
+                if (typeof console === "object") {
+                    console.log.apply(console, arguments);
+                }
+            }
+            function range(start, stop, step) {
+                var length, idx, range;
+                if (arguments.length <= 1) {
+                    stop = start || 0;
+                    start = 0;
+                }
+                step = arguments[2] || 1;
+                length = Math.max(Math.ceil((stop - start) / step), 0);
+                idx = 0;
+                range = new Array(length);
+                while (idx < length) {
+                    range[idx++] = start;
+                    start += step;
+                }
+                return range;
+            }
+            function ՐՏ_type(obj) {
+                return obj && obj.constructor && obj.constructor.name ? obj.constructor.name : Object.prototype.toString.call(obj).slice(8, -1);
+            }
+            function ՐՏ_eq(a, b) {
+                var ՐՏitr26, ՐՏidx26;
+                var i;
+                if (a === b) {
+                    return true;
+                }
+                if (Array.isArray(a) && Array.isArray(b) || a instanceof Object && b instanceof Object) {
+                    if (a.constructor !== b.constructor || a.length !== b.length) {
+                        return false;
+                    }
+                    if (Array.isArray(a)) {
+                        for (i = 0; i < a.length; i++) {
+                            if (!ՐՏ_eq(a[i], b[i])) {
+                                return false;
+                            }
+                        }
+                    } else {
+                        if (Object.keys(a).length !== Object.keys(b).length) {
+                            return false;
+                        }
+                        ՐՏitr26 = ՐՏ_Iterable(a);
+                        for (ՐՏidx26 = 0; ՐՏidx26 < ՐՏitr26.length; ՐՏidx26++) {
+                            i = ՐՏitr26[ՐՏidx26];
+                            if (!ՐՏ_eq(a[i], b[i])) {
+                                return false;
+                            }
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
+            var ՐՏ_modules = {};
+            ՐՏ_modules["asset"] = {};
+            ՐՏ_modules["asset.fs_path"] = {};
+            ՐՏ_modules["asset.rs_require"] = {};
+            ՐՏ_modules["asset.rml_mode"] = {};
+            ՐՏ_modules["asset.cm_python_n"] = {};
+            ՐՏ_modules["load_js"] = {};
+            ՐՏ_modules["asset.try_html"] = {};
+            ՐՏ_modules["asset.fs"] = {};
+            
+            (function(){
+                var __name__ = "asset";
+            
+                ՐՏ_modules["asset"]["fs_path"] = ՐՏ_modules["asset.fs_path"];
+            
+                ՐՏ_modules["asset"]["rs_require"] = ՐՏ_modules["asset.rs_require"];
+            
+                ՐՏ_modules["asset"]["rml_mode"] = ՐՏ_modules["asset.rml_mode"];
+            
+                ՐՏ_modules["asset"]["cm_python_n"] = ՐՏ_modules["asset.cm_python_n"];
+            
+                ՐՏ_modules["asset"]["try_html"] = ՐՏ_modules["asset.try_html"];
+            
+                ՐՏ_modules["asset"]["fs"] = ՐՏ_modules["asset.fs"];
+            })();
+            
+            (function(){
+                var __name__ = "asset.fs_path";
+                function is_valid_name(name) {
+                    return /^(\.\w|\w)(\w|\.)*/.test(name);
+                }
+                function to_arr(path) {
+                    var ՐՏitr1, ՐՏidx1;
+                    var dirs, beg, d;
+                    if (path === "" || path === "/") {
+                        return [ "" ];
+                    }
+                    dirs = path.split("/");
+                    if (dirs[dirs.length-1] === "") {
+                        dirs = dirs.slice(0, -1);
+                    }
+                    beg = dirs[0] === "" ? 1 : 0;
+                    ՐՏitr1 = ՐՏ_Iterable(dirs.slice(beg));
+                    for (ՐՏidx1 = 0; ՐՏidx1 < ՐՏitr1.length; ՐՏidx1++) {
+                        d = ՐՏitr1[ՐՏidx1];
+                        if (!(d === ".." || is_valid_name(d))) {
+                            throw new Error("Bad path: " + path);
+                        }
+                    }
+                    return dirs;
+                }
+                function path_arr_resolve(arr, allow_out_root) {
+                    var ՐՏitr2, ՐՏidx2;
+                    var i, ret, path_start, it;
+                    i = 0;
+                    ret = [];
+                    path_start = 0;
+                    ՐՏitr2 = ՐՏ_Iterable(arr);
+                    for (ՐՏidx2 = 0; ՐՏidx2 < ՐՏitr2.length; ՐՏidx2++) {
+                        it = ՐՏitr2[ՐՏidx2];
+                        if (it === "") {
+                            ret[0] = "";
+                            i = 1;
+                            path_start = 1;
+                            continue;
+                        } else if (it === "..") {
+                            --i;
+                            if (i >= path_start) {
+                                continue;
+                            } else if (!allow_out_root) {
+                                throw new Error("Out of root dir");
+                            } else {
+                                ret.unshift("..");
+                                ++path_start;
+                                i += 2;
+                                continue;
+                            }
+                        }
+                        ret[i] = it;
+                        ++i;
+                    }
+                    return ret.slice(0, i);
+                }
+                function path_join() {
+                    var ՐՏitr3, ՐՏidx3;
+                    var arr, p_str;
+                    arr = [];
+                    ՐՏitr3 = ՐՏ_Iterable(arguments);
+                    for (ՐՏidx3 = 0; ՐՏidx3 < ՐՏitr3.length; ՐՏidx3++) {
+                        p_str = ՐՏitr3[ՐՏidx3];
+                        if (p_str) {
+                            Array.prototype.push.apply(arr, to_arr(p_str));
+                        }
+                    }
+                    return path_arr_resolve(arr).join("/");
+                }
+                function rel_path_join() {
+                    var ՐՏitr4, ՐՏidx4;
+                    var arr, p_str;
+                    arr = [];
+                    ՐՏitr4 = ՐՏ_Iterable(arguments);
+                    for (ՐՏidx4 = 0; ՐՏidx4 < ՐՏitr4.length; ՐՏidx4++) {
+                        p_str = ՐՏitr4[ՐՏidx4];
+                        if (p_str) {
+                            Array.prototype.push.apply(arr, to_arr(p_str));
+                        }
+                    }
+                    return path_arr_resolve(arr, true).join("/");
+                }
+                ՐՏ_modules["asset.fs_path"]["is_valid_name"] = is_valid_name;
+            
+                ՐՏ_modules["asset.fs_path"]["to_arr"] = to_arr;
+            
+                ՐՏ_modules["asset.fs_path"]["path_arr_resolve"] = path_arr_resolve;
+            
+                ՐՏ_modules["asset.fs_path"]["path_join"] = path_join;
+            
+                ՐՏ_modules["asset.fs_path"]["rel_path_join"] = rel_path_join;
+            })();
+            
+            (function(){
+                var __name__ = "asset.rs_require";
+                var fs_path = ՐՏ_modules["asset.fs_path"];
+                
+                function doc_ready(arg_to_pass) {
+                    var p;
+                    p = function(ok, err) {
+                        document.addEventListener("readystatechange", function() {
+                            if (document.readyState === "complete") {
+                                ok(arg_to_pass);
+                            }
+                        });
+                    };
+                    return new Promise(p);
+                }
+                function pfor_in(f) {
+                    var ret;
+                    ret = function() {
+                        var self, fargs, lst, counter, ctx;
+                        self = this;
+                        fargs = Array.prototype.slice.call(arguments);
+                        lst = fargs[0];
+                        counter = 0;
+                        ctx = {};
+                        function worker(ok, err) {
+                            if (counter >= lst.length) {
+                                ok(counter);
+                            } else {
+                                ctx.el = lst[counter];
+                                ctx.idx = counter;
+                                ctx.ok = ok;
+                                ctx.err = err;
+                                ++counter;
+                                f.apply(self, fargs.concat(ctx));
+                            }
+                        }
+                        function iter(ok, err) {
+                            function next(status) {
+                                if (status === void 0) {
+                                    new Promise(worker).then(next);
+                                } else {
+                                    ok(status);
+                                }
+                            }
+                            next();
+                        }
+                        return new Promise(iter);
+                    };
+                    return ret;
+                }
+                function prom(f) {
+                    var ret;
+                    ret = function() {
+                        var self, args, p;
+                        self = this;
+                        args = Array.prototype.slice.call(arguments);
+                        p = function(ok, err) {
+                            args.push(ok, err);
+                            f.apply(self, args);
+                        };
+                        return new Promise(p);
+                    };
+                    return ret;
+                }
+                var RS_require = (ՐՏ_1 = class RS_require {
+                    constructor (cfg) {
+                        var self = this;
+                        var define;
+                        self.cfg = cfg;
+                        self.modules = {};
+                        self.load_stack = [];
+                        define = window.define = function(req_list, mod) {
+                            self.define(req_list, mod);
+                        };
+                        define.amd = true;
+                        self.fs_path = fs_path;
+                    }
+                    define (req_list, mod) {
+                        var self = this;
+                        var mod_name, ok;
+                        if (ՐՏ_type(req_list) === "Function") {
+                            mod = req_list;
+                            req_list = [];
+                        }
+                        mod_name = self.load_stack[self.load_stack.length-1].name;
+                        ՐՏ_print(mod_name, " requires: ", req_list);
+                        ok = self.load_stack[self.load_stack.length-1].ok;
+                        function mount_mod(req_mods) {
+                            self.load_stack.pop();
+                            self.modules[mod_name] = {
+                                state: "ok",
+                                exports: mod.apply(null, req_mods.map(function(m) {
+                                    return m.exports;
+                                }))
+                            };
+                            ok(self.modules[mod_name]);
+                        }
+                        if (req_list && req_list.length) {
+                            self.load_amd_list(req_list, mod_name).then(mount_mod);
+                        } else {
+                            mount_mod([]);
+                        }
+                    }
+                    load_amd (name, requester, ok, err) {
+                        var self = this;
+                        var is_url, ret, s, src, js_root_dir;
+                        is_url = /https?:\/{2}.*/.test(name);
+                        if (!is_url) {
+                            if (name.startsWith("./")) {
+                                name = name.slice(2);
+                            }
+                            if (requester) {
+                                name = fs_path.rel_path_join(requester.split("/").slice(0, -1).join("/"), name);
+                            }
+                        }
+                        if (self.load_stack.find(function(it) {
+                            var ՐՏ_2;
+                            return ((ՐՏ_2 = it.name) === name || typeof ՐՏ_2 === "object" && ՐՏ_eq(ՐՏ_2, name));
+                        })) {
+                            throw new Error("Circular dependency: " + name + " and " + requester);
+                        }
+                        ret = self.modules[name];
+                        if (ret) {
+                            ok(ret);
+                        } else {
+                            s = document.createElement("script");
+                            src = name;
+                            if (!is_url) {
+                                js_root_dir = self.cfg && self.cfg.js_root_dir || "";
+                                src = fs_path.rel_path_join(js_root_dir, src);
+                            }
+                            s.src = src + ".js";
+                            s.async = false;
+                            s.onerror = function() {
+                                err(name);
+                            };
+                            self.load_stack.push({
+                                name: name,
+                                ok: ok
+                            });
+                            document.head.appendChild(s);
+                        }
+                    }
+                    load_amd_list (mod_lst, requester, p) {
+                        var self = this;
+                        if (!p.loaded) {
+                            p.loaded = [];
+                        }
+                        function collector(mod) {
+                            var ՐՏ_3, ՐՏ_4;
+                            p.loaded.push(mod);
+                            if (((ՐՏ_3 = p.idx + 1) === (ՐՏ_4 = mod_lst.length) || typeof ՐՏ_3 === "object" && ՐՏ_eq(ՐՏ_3, ՐՏ_4))) {
+                                p.ok(p.loaded);
+                            } else {
+                                p.ok();
+                            }
+                        }
+                        self.load_amd(p.el, requester).then(collector);
+                    }
+                }, (function(){
+                    Object.defineProperties(ՐՏ_1.prototype, {
+                        load_amd: {
+                            enumerable: false, 
+                            writable: true, 
+                            value: prom(ՐՏ_1.prototype.load_amd)
+                        },
+                        load_amd_list: {
+                            enumerable: false, 
+                            writable: true, 
+                            value: pfor_in(ՐՏ_1.prototype.load_amd_list)
+                        }
+                    });
+                    ;
+                })(), ՐՏ_1);
+                ՐՏ_modules["asset.rs_require"]["doc_ready"] = doc_ready;
+            
+                ՐՏ_modules["asset.rs_require"]["pfor_in"] = pfor_in;
+            
+                ՐՏ_modules["asset.rs_require"]["prom"] = prom;
+            
+                ՐՏ_modules["asset.rs_require"]["RS_require"] = RS_require;
+            })();
+            
+            (function(){
+                var __name__ = "asset.rml_mode";
+                var CodeMirror;
+                CodeMirror = null;
+                function get_mode(cm) {
+                    CodeMirror = cm;
+                    return def_mode;
+                }
+                function arr2hash(arr) {
+                    var ret;
+                    ret = {};
+                    arr.forEach(function(it) {
+                        ret[it] = true;
+                    });
+                    return ret;
+                }
+                function wordRegexp(words) {
+                    return new RegExp("^((" + words.join(")|(") + "))\\b");
+                }
+                function def_mode(conf, parserConf) {
+                    var ERRORCLASS, punc, stringPrefixes, tripleOperators, doubleOperators, singleOperators, wordOperators, identifiers, indentUnit, hangingIndent, _keywords, _builtins, keywords, builtins, rml_mode, external;
+                    ՐՏ_print("conf", conf);
+                    ՐՏ_print("parserConf", parserConf);
+                    ERRORCLASS = "error";
+                    punc = parserConf.punctuation || /^[\(\)\[\]\{\}@,:`;\.\\]/;
+                    stringPrefixes = /^'{3}|"{3}|['"]/i;
+                    tripleOperators = parserConf.tripleOperators || /^((\/\/=)|(>>=)|(<<=)|(\*\*=))/;
+                    doubleOperators = parserConf.doubleOperators || /^((==)|(!=)|(<=)|(>=)|(<>)|(<<)|(>>)|(\/\/)|(\*\*)|(\+=)|(\-=)|(\*=)|(%=)|(\/=)|(&=)|(\|=)|(\^=))/;
+                    singleOperators = parserConf.singleOperators || /^[\+\-\*\/%&|\^~<>!=\?]/;
+                    wordOperators = wordRegexp([ "in" ]);
+                    identifiers = parserConf.identifiers || new RegExp("^[_A-Za-z$][_A-Za-z0-9$-]*");
+                    indentUnit = conf.indentUnit;
+                    hangingIndent = parserConf.hangingIndent || indentUnit;
+                    _keywords = "def v-def v-for v-show ref is key component v-if v-else v-else-if v-html v-text v-on v-bind template slot props".split(" ");
+                    _builtins = "$event arguments true false null undefined".split(" ");
+                    if (parserConf.extra_keywords) {
+                        _keywords = _keywords.concat(parserConf.extra_keywords);
+                    }
+                    if (parserConf.extra_builtins) {
+                        _builtins = _builtins.concat(parserConf.extra_builtins);
+                    }
+                    keywords = arr2hash(_keywords);
+                    builtins = arr2hash(_builtins);
+                    CodeMirror.registerHelper("hintWords", "vuepy", _keywords.concat(_builtins));
+                    class RML_mode {
+                        constructor () {
+                            var self = this;
+                            self.ST_KEYS = Object.keys(self.start_state());
+                        }
+                        start_state (basecolumn) {
+                            var self = this;
+                            return {
+                                tokenize: self.token_base,
+                                scopes: [ {
+                                    offset: basecolumn || 0,
+                                    type: "tag",
+                                    tag_props: null,
+                                    align: null,
+                                    sub_type: null,
+                                    tag_name: null,
+                                    tag_style: null
+                                } ],
+                                lastStyle: null,
+                                lastToken: null,
+                                dedent: 0,
+                                indent: null,
+                                js_str_expected: false,
+                                js_str_type: null,
+                                def_tags: null,
+                                tag_name: null,
+                                tag_spec_attrs: null,
+                                tag_style: null,
+                                local_state: null,
+                                local_mode: null
+                            };
+                        }
+                        load_state (state) {
+                            var self = this;
+                            Object.assign(self, state);
+                        }
+                        update_state (state) {
+                            var self = this;
+                            self.ST_KEYS.forEach(function(k) {
+                                state[k] = self[k];
+                            });
+                        }
+                        copy_state (state) {
+                            var self = this;
+                            var ret;
+                            ret = {};
+                            self.ST_KEYS.forEach(function(k) {
+                                var v, _;
+                                v = state[k];
+                                if (Array.isArray(v)) {
+                                    ret[k] = v.slice(0);
+                                } else if (v instanceof Object && !(v instanceof Function)) {
+                                    ret[k] = (function() {
+                                        var ՐՏidx5, ՐՏitr5 = ՐՏ_Iterable(v), ՐՏres = {}, _;
+                                        for (ՐՏidx5 = 0; ՐՏidx5 < ՐՏitr5.length; ՐՏidx5++) {
+                                            _ = ՐՏitr5[ՐՏidx5];
+                                            ՐՏres[_] = v[_];
+                                        }
+                                        return ՐՏres;
+                                    })();
+                                } else {
+                                    ret[k] = v;
+                                }
+                            });
+                            if (ret.local_mode) {
+                                ret.local_state = CodeMirror.copyState(ret.local_mode, ret.local_state);
+                            }
+                            return ret;
+                        }
+                        dedent_process (stream) {
+                            var ՐՏ_5;
+                            var self = this;
+                            var indented;
+                            indented = stream.indentation();
+                            while (self.scopes[self.scopes.length-1].offset > indented) {
+                                if (!/^tag(_inline)?$/.test(self.scopes[self.scopes.length-1].type)) {
+                                    return {
+                                        error: true
+                                    };
+                                }
+                                self.scopes.pop();
+                                while (self.scopes[self.scopes.length-1].type === "tag_inline") {
+                                    self.scopes.pop();
+                                }
+                            }
+                            return {
+                                error: ((ՐՏ_5 = self.scopes[self.scopes.length-1].offset) !== indented && (typeof ՐՏ_5 !== "object" || !ՐՏ_eq(ՐՏ_5, indented)))
+                            };
+                        }
+                        token_re (stream) {
+                            var self = this;
+                            var escaped, inSet, next;
+                            escaped = false;
+                            inSet = false;
+                            while (next = stream.next()) {
+                                if (!escaped) {
+                                    if (next === "/" && !inSet) {
+                                        return;
+                                    }
+                                    if (next === "[") {
+                                        inSet = true;
+                                    } else if (inSet && next === "]") {
+                                        inSet = false;
+                                    }
+                                }
+                                escaped = !escaped && next === "\\";
+                            }
+                        }
+                        token_base (stream) {
+                            var self = this;
+                            var sol, indent, scope_offset, line_offset, style;
+                            sol = stream.sol();
+                            if (sol) {
+                                indent = self.indent = stream.indentation();
+                                if (/^tag(_inline)?$/.test(self.scopes[self.scopes.length-1].type)) {
+                                    {
+                                        scope_offset = self.scopes[self.scopes.length-1].offset;
+                                        if (stream.eatSpace()) {
+                                            line_offset = indent;
+                                            if (line_offset > scope_offset) {
+                                                self.push_scope(stream, "tag");
+                                            } else if (line_offset < scope_offset && self.dedent_process(stream).error) {
+                                                stream.skipToEnd();
+                                                return ERRORCLASS;
+                                            } else if (self.scopes[self.scopes.length-1].type === "tag_inline") {
+                                                while (self.scopes[self.scopes.length-1].type === "tag_inline") {
+                                                    self.scopes.pop();
+                                                }
+                                            }
+                                            return null;
+                                        } else {
+                                            style = self.token_baseInner(stream);
+                                            if (scope_offset > 0 && self.dedent_process(stream).error) {
+                                                style += " " + ERRORCLASS;
+                                            }
+                                            return style;
+                                        }
+                                    }
+                                }
+                            }
+                            return self.token_baseInner(stream);
+                        }
+                        token_baseInner (stream) {
+                            var ՐՏ_6;
+                            var self = this;
+                            var ch, quote, w;
+                            if (stream.eatSpace()) {
+                                return null;
+                            }
+                            ch = stream.peek();
+                            if (ch === "#") {
+                                stream.skipToEnd();
+                                return "comment";
+                            }
+                            if (stream.match(/^[0-9\.]/, false)) {
+                                if (stream.match(/^\d*\.\d+(e[\+\-]?\d+)?/i) || stream.match(/^\d+\.\d*/) || stream.match(/^\.\d+/)) {
+                                    stream.eat(/J/i);
+                                    return "number";
+                                }
+                                if (stream.match(/^0x[0-9a-f]+/i) || stream.match(/^0b[01]+L?/i) || stream.match(/^0o[0-7]+L?/i) || stream.match(/^[0-9]\d*(e[\+\-]?\d+)?(L|J)?/i)) {
+                                    return "number";
+                                }
+                            }
+                            if (quote = stream.match(stringPrefixes)) {
+                                quote = quote[0];
+                                if (self.js_str_expected) {
+                                    self.js_str_expected = false;
+                                    if (self.lastToken !== "=") {
+                                        return ERRORCLASS;
+                                    }
+                                    self.push_scope(stream, quote);
+                                    return "punctuation js_string_qte";
+                                } else if (/^('|")/.test(self.scopes[self.scopes.length-1].type)) {
+                                    self.scopes.pop();
+                                    self.js_str_type = null;
+                                    return "punctuation js_string_qte";
+                                } else {
+                                    if (((ՐՏ_6 = self.js_str_type) === quote || typeof ՐՏ_6 === "object" && ՐՏ_eq(ՐՏ_6, quote))) {
+                                        return ERRORCLASS;
+                                    }
+                                    self.tokenize = self.token_string_factory(stream.current());
+                                    return self.tokenize(stream);
+                                }
+                            }
+                            if (stream.match(tripleOperators) || stream.match(doubleOperators) || stream.match(wordOperators)) {
+                                return "operator";
+                            }
+                            if (stream.eat("/")) {
+                                if (!self.lastToken || self.lastStyle === "operator" || /^([\[{\(:=,'"]|in)$/.test(self.lastToken)) {
+                                    self.token_re(stream);
+                                    stream.match(/^\b(([gimyu])(?![gimyu]*\2))+\b/);
+                                    return "string-2";
+                                } else {
+                                    return "operator";
+                                }
+                            }
+                            if (stream.match(singleOperators)) {
+                                return "operator";
+                            }
+                            if (stream.match(punc)) {
+                                return "punctuation";
+                            }
+                            if (w = stream.match(identifiers)) {
+                                w = w[0];
+                                if (keywords[w]) {
+                                    return "keyword";
+                                }
+                                if (builtins[w]) {
+                                    return "builtin";
+                                }
+                                if (/^(this)\b/.test(w)) {
+                                    return "variable-2";
+                                } else {
+                                    if (self.scopes[self.scopes.length-1].type.startsWith("tag")) {
+                                        return self.lastToken === "def" ? "def" : "tag";
+                                    }
+                                    if (self.scopes[self.scopes.length-1].sub_type === "attr") {
+                                        return "attribute";
+                                    }
+                                    return "variable";
+                                }
+                            }
+                            stream.next();
+                            return ERRORCLASS;
+                        }
+                        token_string_factory (delimiter) {
+                            var self = this;
+                            var singleline, OUTCLASS;
+                            singleline = delimiter.length === 1;
+                            OUTCLASS = "string";
+                            function token_string(stream) {
+                                while (!stream.eol()) {
+                                    stream.eatWhile(/[^'"\\]/);
+                                    if (stream.eat("\\")) {
+                                        stream.next();
+                                        if (singleline && stream.eol()) {
+                                            return OUTCLASS;
+                                        }
+                                    } else if (stream.match(delimiter)) {
+                                        self.tokenize = self.token_base;
+                                        return OUTCLASS;
+                                    } else {
+                                        stream.eat(/['"]/);
+                                    }
+                                }
+                                if (singleline) {
+                                    if (parserConf.singleLineStringErrors) {
+                                        return ERRORCLASS;
+                                    } else {
+                                        self.tokenize = self.token_base;
+                                    }
+                                }
+                                return OUTCLASS;
+                            }
+                            token_string.isString = true;
+                            return token_string;
+                        }
+                        push_scope (stream, type) {
+                            var self = this;
+                            var offset, align, sub_type, tag_props, tag_name, tag_style;
+                            offset = 0;
+                            align = null;
+                            sub_type = null;
+                            tag_props = null;
+                            tag_name = null;
+                            tag_style = null;
+                            if (type === "tag") {
+                                while (self.scopes[self.scopes.length-1].type !== "tag") {
+                                    self.scopes.pop();
+                                }
+                                offset = self.scopes[self.scopes.length-1].offset + indentUnit;
+                                if (self.tag_spec_attrs) {
+                                    tag_props = self.tag_spec_attrs;
+                                    self.tag_spec_attrs = null;
+                                }
+                                tag_name = self.tag_name;
+                                tag_style = self.tag_style;
+                            } else if (type === "tag_inline") {
+                                while (!self.scopes[self.scopes.length-1].type.startsWith("tag")) {
+                                    self.scopes.pop();
+                                }
+                                offset = self.scopes[self.scopes.length-1].offset;
+                            } else if (type === "'" || type === '"') {
+                                self.js_str_type = type;
+                            } else if (type.endsWith("---")) {
+                                offset = self.scopes[self.scopes.length-1].offset;
+                            } else {
+                                if (!stream.match(/^(\s|#.*)*$/, false)) {
+                                    align = stream.column() + 1;
+                                }
+                                offset = self.scopes[self.scopes.length-1].offset + hangingIndent;
+                                sub_type = self.scopes[self.scopes.length-1].type.startsWith("tag") ? "attr" : null;
+                            }
+                            self.scopes.push({
+                                offset: offset,
+                                type: type,
+                                align: align,
+                                tag_props: tag_props,
+                                sub_type: sub_type,
+                                tag_name: tag_name,
+                                tag_style: tag_style
+                            });
+                        }
+                        token_lexer (stream) {
+                            var ՐՏ_7, ՐՏ_8, ՐՏ_9, ՐՏ_10;
+                            var self = this;
+                            var style, current, scope, def_tag_attrs, re_attr, attr_value, delimiter_index;
+                            style = self.tokenize(stream);
+                            current = stream.current();
+                            if (current === ".") {
+                                style = stream.match(identifiers, false) ? null : ERRORCLASS;
+                                if ((style === (ՐՏ_7 = null) || typeof style === "object" && ՐՏ_eq(style, ՐՏ_7)) && self.lastStyle === "meta") {
+                                    style = "meta";
+                                }
+                                return style;
+                            }
+                            if (current === "@") {
+                                self.js_str_expected = true;
+                                return stream.match(identifiers, false) ? "meta" : ERRORCLASS;
+                            }
+                            if ((style === "variable" || style === "builtin") && self.lastStyle === "meta") {
+                                style = "meta";
+                            }
+                            scope = self.scopes[self.scopes.length-1];
+                            if (scope.type.startsWith("tag")) {
+                                if (style === "def" || style === "tag") {
+                                    self.tag_name = current;
+                                    self.tag_style = style;
+                                    if (style === "tag" && (def_tag_attrs = self.def_tags ? self.def_tags[current] : null)) {
+                                        self.tag_spec_attrs = Object.assign({}, def_tag_attrs);
+                                    }
+                                    if (ՐՏ_in(self.tag_name, [ "v-pyj", "v-css" ])) {
+                                        style = "keyword";
+                                    }
+                                } else if (current === ":") {
+                                    if (stream.match(/^(\s|#.*)*$/, false)) {
+                                        self.push_scope(stream, "tag");
+                                    } else {
+                                        self.push_scope(stream, "tag_inline");
+                                    }
+                                }
+                            } else if (scope.sub_type === "attr") {
+                                if (current === ":" && (/^(,|\(|v-bind)$/.test(self.lastToken) || /^(v-for|v-if|v-show|v-else-if)$/.test(self.lastToken))) {
+                                    self.js_str_expected = true;
+                                } else if (style === "attribute" && (self.lastToken === "%" || current === "type")) {
+                                    re_attr = /^\s*=\s*('|")([^'"]+)\1/;
+                                    attr_value = stream.match(re_attr, false);
+                                    attr_value = attr_value ? attr_value[2] : true;
+                                    if (self.tag_style === "def") {
+                                        if (!self.def_tags) {
+                                            self.def_tags = {};
+                                        }
+                                        if (!self.def_tags[self.tag_name]) {
+                                            self.def_tags[self.tag_name] = {};
+                                        }
+                                        self.def_tags[self.tag_name][current] = attr_value;
+                                    } else {
+                                        self.tag_spec_attrs = self.tag_spec_attrs || {};
+                                        self.tag_spec_attrs[current] = attr_value;
+                                    }
+                                }
+                            }
+                            if (style && style.startsWith("punctuation")) {
+                                delimiter_index = current.length === 1 ? "[({".indexOf(current) : -1;
+                                if ((delimiter_index !== (ՐՏ_8 = -1) && (typeof delimiter_index !== "object" || !ՐՏ_eq(delimiter_index, ՐՏ_8)))) {
+                                    self.push_scope(stream, "])}"[delimiter_index]);
+                                } else {
+                                    delimiter_index = "])}".indexOf(current);
+                                    if ((delimiter_index !== (ՐՏ_9 = -1) && (typeof delimiter_index !== "object" || !ՐՏ_eq(delimiter_index, ՐՏ_9)))) {
+                                        if (((ՐՏ_10 = self.scopes[self.scopes.length-1].type) === current || typeof ՐՏ_10 === "object" && ՐՏ_eq(ՐՏ_10, current))) {
+                                            self.scopes.pop();
+                                        } else {
+                                            return ERRORCLASS;
+                                        }
+                                    }
+                                }
+                            }
+                            return style;
+                        }
+                    }
+                    rml_mode = new RML_mode();
+                    function start_state(basecolumn) {
+                        return rml_mode.start_state(basecolumn);
+                    }
+                    function token(stream, state) {
+                        var ՐՏ_11, ՐՏ_12;
+                        var scope, r, local_state, mode_name, mode, style, current;
+                        scope = state.scopes[state.scopes.length-1];
+                        if (stream.sol()) {
+                            if (stream.match(/^\s*$/)) {
+                                return null;
+                            }
+                            function get_mode() {
+                                if (scope.tag_name === "v-pyj" || scope.type === "tag" && scope.tag_props && scope.tag_props.compiler) {
+                                    return "cpyj";
+                                }
+                                if (ՐՏ_in(scope.tag_name, [ "v-css", "style" ])) {
+                                    return "css";
+                                }
+                                if (scope.tag_name === "script" || scope.type === "tag" && scope.tag_props && scope.tag_props.type === "text/javascript") {
+                                    return "javascript";
+                                }
+                            }
+                            r = null;
+                            if (!(local_state = state.local_state) && (mode_name = get_mode())) {
+                                if (stream.indentation() >= scope.offset || ((ՐՏ_11 = scope.offset - indentUnit) === (ՐՏ_12 = stream.indentation()) || typeof ՐՏ_11 === "object" && ՐՏ_eq(ՐՏ_11, ՐՏ_12)) && (r = stream.match(/^(\s*)\+{3}(\s|#.*)*$/))) {
+                                    mode = CodeMirror.getMode(conf, mode_name);
+                                    state.local_state = CodeMirror.startState(mode, stream.indentation());
+                                    state.local_mode = mode;
+                                }
+                                if (r) {
+                                    rml_mode.load_state(state);
+                                    rml_mode.push_scope(stream, r[1] + "---");
+                                    rml_mode.update_state(state);
+                                    return "operator";
+                                }
+                            } else if (local_state && !(local_state.tokenize && local_state.tokenize.isString) && (scope.type === "tag" && stream.indentation() < scope.offset || scope.type.endsWith("---") && (r = stream.match(new RegExp("^" + scope.type + "(\\s*|#.*)*$"))))) {
+                                state.local_state = null;
+                                state.local_mode = null;
+                                if (r) {
+                                    state.scopes.pop();
+                                    return "operator";
+                                }
+                            }
+                        }
+                        if (state.local_mode) {
+                            return state.local_mode.token(stream, state.local_state);
+                        }
+                        rml_mode.load_state(state);
+                        style = rml_mode.token_lexer(stream);
+                        if (style) {
+                            rml_mode.lastStyle = style;
+                        }
+                        current = stream.current();
+                        if (current && style) {
+                            rml_mode.lastToken = current;
+                        }
+                        if (stream.eol() && ՐՏ_in(rml_mode.scopes[rml_mode.scopes.length-1].type, [ '"', "'" ])) {
+                            rml_mode.scopes.pop();
+                            style = ERRORCLASS;
+                        }
+                        rml_mode.update_state(state);
+                        return style;
+                    }
+                    function indent(state, textAfter) {
+                        var ՐՏ_13, ՐՏ_14, ՐՏ_15, ՐՏ_16, ՐՏ_17, ՐՏ_18;
+                        var scope, closing;
+                        if (state.local_mode) {
+                            if (state.local_mode.indent) {
+                                return state.local_mode.indent(state.local_state, textAfter);
+                            } else {
+                                return CodeMirror.Pass;
+                            }
+                        }
+                        if (((ՐՏ_13 = state.tokenize) !== (ՐՏ_14 = rml_mode.token_base) && (typeof ՐՏ_13 !== "object" || !ՐՏ_eq(ՐՏ_13, ՐՏ_14)))) {
+                            return state.tokenize && state.tokenize.isString ? CodeMirror.Pass : 0;
+                        }
+                        scope = state.scopes[state.scopes.length-1];
+                        if (scope.type === '"' || scope.type === "'") {
+                            return CodeMirror.Pass;
+                        }
+                        closing = textAfter && ((ՐՏ_15 = textAfter.charAt(0)) === (ՐՏ_16 = scope.type) || typeof ՐՏ_15 === "object" && ՐՏ_eq(ՐՏ_15, ՐՏ_16));
+                        if (((ՐՏ_17 = scope.align) !== (ՐՏ_18 = null) && (typeof ՐՏ_17 !== "object" || !ՐՏ_eq(ՐՏ_17, ՐՏ_18)))) {
+                            return scope.align - (closing && state.lastToken !== "," ? 1 : 0);
+                        } else if (closing && state.scopes.length > 1) {
+                            return state.scopes[state.scopes.length-2].offset;
+                        } else {
+                            return scope.offset;
+                        }
+                    }
+                    external = {
+                        startState: start_state,
+                        token: token,
+                        indent: indent,
+                        lineComment: "#",
+                        fold: "indent",
+                        electricInput: /^\s*[\}\]\)]$/,
+                        copyState: function(state) {
+                            return rml_mode.copy_state(state);
+                        },
+                        innerMode: function(state) {
+                            if (state.local_state) {
+                                return {
+                                    state: state.local_state,
+                                    mode: state.local_mode
+                                };
+                            } else {
+                                return null;
+                            }
+                        }
+                    };
+                    return external;
+                }
+                ՐՏ_modules["asset.rml_mode"]["CodeMirror"] = CodeMirror;
+            
+                ՐՏ_modules["asset.rml_mode"]["get_mode"] = get_mode;
+            
+                ՐՏ_modules["asset.rml_mode"]["arr2hash"] = arr2hash;
+            
+                ՐՏ_modules["asset.rml_mode"]["wordRegexp"] = wordRegexp;
+            
+                ՐՏ_modules["asset.rml_mode"]["def_mode"] = def_mode;
+            })();
+            
+            (function(){
+                var __name__ = "asset.cm_python_n";
+                var CodeMirror;
+                CodeMirror = null;
+                function get_mode(cm) {
+                    CodeMirror = cm;
+                    return def_mode;
+                }
+                function arr2hash(arr) {
+                    var ret;
+                    ret = {};
+                    arr.forEach(function(it) {
+                        ret[it] = true;
+                    });
+                    return ret;
+                }
+                function wordRegexp(words) {
+                    return new RegExp("^((" + words.join(")|(") + "))\\b");
+                }
+                function def_mode(conf, parserConf) {
+                    var ERRORCLASS, punc, tripleOperators, doubleOperators, singleOperators, wordOperators, identifiers, indentUnit, hangingIndent, stringPrefixes, commonKeywords, commonBuiltins, py2, py3, _keywords, _builtins, keywords, builtins, rs_mode, external;
+                    ERRORCLASS = "error";
+                    punc = parserConf.punctuation || /^[\(\)\[\]\{\}@,:`;\.\\]/;
+                    tripleOperators = parserConf.tripleOperators || /^((\/\/=)|(>>=)|(<<=)|(\*\*=))/;
+                    doubleOperators = parserConf.doubleOperators || /^((==)|(!=)|(<=)|(>=)|(<>)|(<<)|(>>)|(\/\/)|(\*\*)|(\+=)|(\-=)|(\*=)|(%=)|(\/=)|(&=)|(\|=)|(\^=))/;
+                    singleOperators = parserConf.singleOperators || /^[\+\-\*\/%&|\^~<>!=\?]/;
+                    wordOperators = wordRegexp([ "and", "or", "not", "is", "in", "del" ]);
+                    identifiers = parserConf.identifiers || new RegExp("^[_A-Za-z$][_A-Za-z0-9$]*");
+                    indentUnit = conf.indentUnit;
+                    hangingIndent = parserConf.hangingIndent || indentUnit;
+                    stringPrefixes = new RegExp("^(([rub]|(ur)|(br))?('{3}|\"{3}|['\"]))", "i");
+                    commonKeywords = [ "as", "assert", "break", "class", "continue", "def", "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "lambda", "pass", "raise", "return", "try", "while", "with", "yield" ];
+                    commonBuiltins = [ "abs", "all", "any", "bin", "bool", "bytearray", "callable", "chr", "classmethod", "compile", "complex", "delattr", "dict", "dir", "divmod", "enumerate", "eval", "filter", "float", "format", "frozenset", "getattr", "globals", "hasattr", "hash", "help", "hex", "id", "input", "int", "isinstance", "issubclass", "iter", "len", "list", "locals", "map", "max", "memoryview", "min", "next", "object", "oct", "open", "ord", "pow", "property", "range", "repr", "reversed", "round", "set", "setattr", "slice", "sorted", "staticmethod", "str", "sum", "super", "tuple", "type", "vars", "zip", "__import__", "NotImplemented", "Ellipsis", "__debug__" ];
+                    py2 = {
+                        builtins: [ "apply", "basestring", "buffer", "cmp", "coerce", "execfile", "file", "intern", "long", "raw_input", "reduce", "reload", "unichr", "unicode", "xrange", "False", "True", "None" ],
+                        keywords: [ "exec", "print" ]
+                    };
+                    py3 = {
+                        builtins: [ "ascii", "bytes", "exec", "print" ],
+                        keywords: [ "nonlocal", "False", "True", "None" ]
+                    };
+                    _keywords = commonKeywords.concat(py2.keywords);
+                    _builtins = commonBuiltins.concat(py2.builtins);
+                    _keywords = _keywords.concat(py3.keywords);
+                    _builtins = _builtins.concat(py3.builtins);
+                    if (parserConf.extra_keywords) {
+                        _keywords = _keywords.concat(parserConf.extra_keywords);
+                    }
+                    if (parserConf.extra_builtins) {
+                        _builtins = _builtins.concat(parserConf.extra_builtins);
+                    }
+                    keywords = arr2hash(_keywords);
+                    builtins = arr2hash(_builtins);
+                    CodeMirror.registerHelper("hintWords", "cpyj", _keywords.concat(_builtins));
+                    class RS_mode {
+                        start_state (basecolumn) {
+                            var self = this;
+                            return {
+                                tokenize: self.token_base,
+                                scopes: [ {
+                                    offset: basecolumn || 0,
+                                    type: "py",
+                                    align: null
+                                } ],
+                                lastStyle: null,
+                                lastToken: null,
+                                lastPunc: null,
+                                dedent: 0,
+                                indent: null,
+                                is_glueLine: false
+                            };
+                        }
+                        load_state (state) {
+                            var self = this;
+                            Object.assign(self, state);
+                        }
+                        update_state (state) {
+                            var self = this;
+                            var st_keys;
+                            st_keys = Object.keys(self.start_state());
+                            st_keys.forEach(function(k) {
+                                state[k] = self[k];
+                            });
+                        }
+                        dedent_process (stream) {
+                            var ՐՏ_19;
+                            var self = this;
+                            var indented;
+                            indented = stream.indentation();
+                            while (self.scopes[self.scopes.length-1].offset > indented) {
+                                if (!/^py(_inline)?$/.test(self.scopes[self.scopes.length-1].type)) {
+                                    return {
+                                        error: true
+                                    };
+                                }
+                                self.scopes.pop();
+                                while (self.scopes[self.scopes.length-1].type === "py_inline") {
+                                    self.scopes.pop();
+                                }
+                            }
+                            return {
+                                error: ((ՐՏ_19 = self.scopes[self.scopes.length-1].offset) !== indented && (typeof ՐՏ_19 !== "object" || !ՐՏ_eq(ՐՏ_19, indented)))
+                            };
+                        }
+                        token_re (stream) {
+                            var self = this;
+                            var escaped, inSet, next;
+                            escaped = false;
+                            inSet = false;
+                            while (next = stream.next()) {
+                                if (!escaped) {
+                                    if (next === "/" && !inSet) {
+                                        return;
+                                    }
+                                    if (next === "[") {
+                                        inSet = true;
+                                    } else if (inSet && next === "]") {
+                                        inSet = false;
+                                    }
+                                }
+                                escaped = !escaped && next === "\\";
+                            }
+                        }
+                        token_base (stream) {
+                            var self = this;
+                            var sol, indent, scope_offset, line_offset, style;
+                            sol = stream.sol() && !self.is_glueLine;
+                            if (sol) {
+                                indent = self.indent = stream.indentation();
+                                if (/^py(_inline)?$/.test(self.scopes[self.scopes.length-1].type)) {
+                                    scope_offset = self.scopes[self.scopes.length-1].offset;
+                                    if (stream.eatSpace()) {
+                                        line_offset = indent;
+                                        if (line_offset > scope_offset) {
+                                            self.push_scope(stream, "py");
+                                        } else if (line_offset < scope_offset && self.dedent_process(stream).error) {
+                                            stream.skipToEnd();
+                                            return ERRORCLASS;
+                                        } else if (self.scopes[self.scopes.length-1].type === "py_inline") {
+                                            while (self.scopes[self.scopes.length-1].type === "py_inline") {
+                                                self.scopes.pop();
+                                            }
+                                        }
+                                        return null;
+                                    } else {
+                                        style = self.token_baseInner(stream);
+                                        if (scope_offset > 0 && self.dedent_process(stream).error) {
+                                            style += " " + ERRORCLASS;
+                                        }
+                                        return style;
+                                    }
+                                }
+                            }
+                            return self.token_baseInner(stream);
+                        }
+                        token_baseInner (stream) {
+                            var self = this;
+                            var ch, w, addClass;
+                            if (stream.eatSpace()) {
+                                return null;
+                            }
+                            ch = stream.peek();
+                            if (ch === "#") {
+                                stream.skipToEnd();
+                                return "comment";
+                            }
+                            if (stream.match(/^[0-9\.]/, false)) {
+                                if (stream.match(/^\d*\.\d+(e[\+\-]?\d+)?/i) || stream.match(/^\d+\.\d*/) || stream.match(/^\.\d+/)) {
+                                    stream.eat(/J/i);
+                                    return "number";
+                                }
+                                if (stream.match(/^0x[0-9a-f]+/i) || stream.match(/^0b[01]+L?/i) || stream.match(/^0o[0-7]+L?/i) || stream.match(/^[0-9]\d*(e[\+\-]?\d+)?(L|J)?/i)) {
+                                    return "number";
+                                }
+                            }
+                            if (stream.match(stringPrefixes)) {
+                                self.tokenize = self.token_string_factory(stream.current());
+                                return self.tokenize(stream);
+                            }
+                            if (stream.match(tripleOperators) || stream.match(doubleOperators) || stream.match(wordOperators)) {
+                                return "operator";
+                            }
+                            if (stream.eat("/")) {
+                                if (!self.lastToken || self.lastStyle === "operator" || ՐՏ_in(self.lastToken, [ "return", "if", "elif", "while", "in" ]) || /^[\[{\(:=,]$/.test(self.lastToken)) {
+                                    self.token_re(stream);
+                                    stream.match(/^\b(([gimyu])(?![gimyu]*\2))+\b/);
+                                    return "string-2";
+                                } else {
+                                    return "operator";
+                                }
+                            }
+                            if (stream.match(singleOperators)) {
+                                return "operator";
+                            }
+                            if (stream.match(punc)) {
+                                return "punctuation";
+                            }
+                            if (w = stream.match(identifiers)) {
+                                w = w[0];
+                                if (keywords[w]) {
+                                    return "keyword";
+                                }
+                                if (builtins[w]) {
+                                    return "builtin";
+                                }
+                                if (/^(self|cls)\b/.test(w)) {
+                                    return "variable-2";
+                                } else {
+                                    addClass = w.startsWith("$") ? " variable-buck" : "";
+                                    return (/^(def|class)$/.test(self.lastToken) ? "def" : "variable") + addClass;
+                                }
+                            }
+                            stream.next();
+                            return ERRORCLASS;
+                        }
+                        token_string_factory (delimiter) {
+                            var self = this;
+                            var singleline, OUTCLASS;
+                            while ("rub".indexOf(delimiter.charAt(0).toLowerCase()) >= 0) {
+                                delimiter = delimiter.substr(1);
+                            }
+                            singleline = delimiter.length === 1;
+                            OUTCLASS = "string";
+                            function token_string(stream) {
+                                while (!stream.eol()) {
+                                    stream.eatWhile(/[^'"\\]/);
+                                    if (stream.eat("\\")) {
+                                        stream.next();
+                                        if (singleline && stream.eol()) {
+                                            return OUTCLASS;
+                                        }
+                                    } else if (stream.match(delimiter)) {
+                                        self.tokenize = self.token_base;
+                                        return OUTCLASS;
+                                    } else {
+                                        stream.eat(/['"]/);
+                                    }
+                                }
+                                if (singleline) {
+                                    if (parserConf.singleLineStringErrors) {
+                                        return ERRORCLASS;
+                                    } else {
+                                        self.tokenize = self.token_base;
+                                    }
+                                }
+                                return OUTCLASS;
+                            }
+                            token_string.isString = true;
+                            return token_string;
+                        }
+                        push_scope (stream, type) {
+                            var self = this;
+                            var offset, align;
+                            offset = 0;
+                            align = null;
+                            if (type === "py") {
+                                while (self.scopes[self.scopes.length-1].type !== "py") {
+                                    self.scopes.pop();
+                                }
+                                offset = self.scopes[self.scopes.length-1].offset + indentUnit;
+                            } else if (type === "py_inline") {
+                                while (!self.scopes[self.scopes.length-1].type.startsWith("py")) {
+                                    self.scopes.pop();
+                                }
+                                offset = self.scopes[self.scopes.length-1].offset;
+                            } else if (type === ":") {
+                            } else {
+                                if (!stream.match(/^(\s|#.*)*$/, false)) {
+                                    align = stream.column() + 1;
+                                }
+                                offset = self.scopes[self.scopes.length-1].offset + hangingIndent;
+                            }
+                            self.scopes.push({
+                                offset: offset,
+                                type: type,
+                                align: align
+                            });
+                        }
+                        token_lexer (stream) {
+                            var ՐՏ_20, ՐՏ_21, ՐՏ_22, ՐՏ_23;
+                            var self = this;
+                            var style, current, delimiter_index;
+                            style = self.tokenize(stream);
+                            current = stream.current();
+                            self.is_glueLine = false;
+                            if (current === ".") {
+                                style = stream.match(identifiers, false) ? null : ERRORCLASS;
+                                if ((style === (ՐՏ_20 = null) || typeof style === "object" && ՐՏ_eq(style, ՐՏ_20)) && self.lastStyle === "meta") {
+                                    style = "meta";
+                                }
+                                return style;
+                            }
+                            if (current === "@") {
+                                return stream.match(identifiers, false) ? "meta" : ERRORCLASS;
+                            }
+                            if ((style === "variable" || style === "builtin") && self.lastStyle === "meta") {
+                                style = "meta";
+                            }
+                            if (self.scopes[self.scopes.length-1].type === "py" && (current === "pass" || current === "return")) {
+                                ++self.dedent;
+                            } else if (current === "lambda") {
+                                if (self.lastToken && (self.lastToken === "return" || /^[\[\(:=]$/.test(self.lastToken) || self.lastToken === "," && self.scopes[self.scopes.length-1].type !== "}")) {
+                                    self.push_scope(stream, ":");
+                                } else {
+                                    style = "variable";
+                                }
+                            } else if (current === "?") {
+                                self.push_scope(stream, ":");
+                            } else if (current === ":") {
+                                if (self.scopes[self.scopes.length-1].type === "py") {
+                                    if (stream.match(/^(\s|#.*)*$/, false)) {
+                                        self.push_scope(stream, "py");
+                                    } else {
+                                        self.push_scope(stream, "py_inline");
+                                    }
+                                } else if (self.scopes[self.scopes.length-1].type === ":") {
+                                    self.scopes.pop();
+                                }
+                            } else {
+                                delimiter_index = current.length === 1 ? "[({".indexOf(current) : -1;
+                                if ((delimiter_index !== (ՐՏ_21 = -1) && (typeof delimiter_index !== "object" || !ՐՏ_eq(delimiter_index, ՐՏ_21)))) {
+                                    self.push_scope(stream, "])}"[delimiter_index]);
+                                } else {
+                                    delimiter_index = "])}".indexOf(current);
+                                    if ((delimiter_index !== (ՐՏ_22 = -1) && (typeof delimiter_index !== "object" || !ՐՏ_eq(delimiter_index, ՐՏ_22)))) {
+                                        if (((ՐՏ_23 = self.scopes[self.scopes.length-1].type) === current || typeof ՐՏ_23 === "object" && ՐՏ_eq(ՐՏ_23, current))) {
+                                            self.scopes.pop();
+                                        } else {
+                                            return ERRORCLASS;
+                                        }
+                                    }
+                                }
+                            }
+                            if (self.dedent > 0 && stream.eol() && !self.is_glueLine && self.scopes[self.scopes.length-1].type === "py") {
+                                if (self.scopes.length > 1) {
+                                    self.scopes.pop();
+                                }
+                                --self.dedent;
+                            }
+                            if (style === "punctuation" && current === "\\") {
+                                if (stream.eol()) {
+                                    self.is_glueLine = true;
+                                } else {
+                                    stream.skipToEnd();
+                                    style = ERRORCLASS;
+                                }
+                            }
+                            return style;
+                        }
+                    }
+                    rs_mode = new RS_mode();
+                    function start_state(basecol) {
+                        return rs_mode.start_state(basecol);
+                    }
+                    function token(stream, state) {
+                        var style, current;
+                        rs_mode.load_state(state);
+                        style = rs_mode.token_lexer(stream);
+                        if (!rs_mode.is_glueLine) {
+                            if (style) {
+                                rs_mode.lastStyle = style;
+                            }
+                            current = stream.current();
+                            if (current && style) {
+                                rs_mode.lastToken = current;
+                            }
+                            if (stream.eol() && rs_mode.scopes[rs_mode.scopes.length-1].type === ":") {
+                                rs_mode.scopes.pop();
+                                style = ERRORCLASS;
+                            }
+                        }
+                        rs_mode.update_state(state);
+                        return style;
+                    }
+                    function indent(state, textAfter) {
+                        var ՐՏ_24, ՐՏ_25, ՐՏ_26, ՐՏ_27, ՐՏ_28, ՐՏ_29;
+                        var scope, closing;
+                        rs_mode.load_state(state);
+                        if (rs_mode.tokenize && ((ՐՏ_24 = rs_mode.tokenize) !== (ՐՏ_25 = rs_mode.token_base) && (typeof ՐՏ_24 !== "object" || !ՐՏ_eq(ՐՏ_24, ՐՏ_25)))) {
+                            return rs_mode.tokenize.isString ? CodeMirror.Pass : 0;
+                        }
+                        scope = rs_mode.scopes[rs_mode.scopes.length-1];
+                        if (scope.type === ":") {
+                            return CodeMirror.Pass;
+                        }
+                        closing = textAfter && ((ՐՏ_26 = textAfter.charAt(0)) === (ՐՏ_27 = scope.type) || typeof ՐՏ_26 === "object" && ՐՏ_eq(ՐՏ_26, ՐՏ_27));
+                        if (((ՐՏ_28 = scope.align) !== (ՐՏ_29 = null) && (typeof ՐՏ_28 !== "object" || !ՐՏ_eq(ՐՏ_28, ՐՏ_29)))) {
+                            return scope.align - (closing && state.lastToken !== "," ? 1 : 0);
+                        } else if (closing && rs_mode.scopes.length > 1) {
+                            return rs_mode.scopes[rs_mode.scopes.length - 2].offset;
+                        } else {
+                            return scope.offset;
+                        }
+                    }
+                    external = {
+                        startState: start_state,
+                        token: token,
+                        indent: indent,
+                        lineComment: "#",
+                        fold: "indent",
+                        electricInput: /^\s*[\}\]\)]$/
+                    };
+                    return external;
+                    '\n        words = def(str): return str.split(" ");\n\n\n        CodeMirror.defineMIME("text/x-cython", {\n            name: "python",\n            extra_keywords: words("by cdef cimport cpdef ctypedef enum except"+\n                              "extern gil include nogil property public"+\n                              "readonly struct union DEF IF ELIF ELSE")\n\n    ';
+                }
+                ՐՏ_modules["asset.cm_python_n"]["CodeMirror"] = CodeMirror;
+            
+                ՐՏ_modules["asset.cm_python_n"]["get_mode"] = get_mode;
+            
+                ՐՏ_modules["asset.cm_python_n"]["arr2hash"] = arr2hash;
+            
+                ՐՏ_modules["asset.cm_python_n"]["wordRegexp"] = wordRegexp;
+            
+                ՐՏ_modules["asset.cm_python_n"]["def_mode"] = def_mode;
+            })();
+            
+            (function(){
+                var __name__ = "load_js";
+                function load(rs_req) {
+                    function get_mods() {
+                        var mods;
+                        mods = [ "codemirror/lib/codemirror.js", "codemirror/mode/python/python.js", "codemirror/mode/javascript/javascript.js", "codemirror/mode/css/css.js", "codemirror/mode/xml/xml.js", "codemirror/mode/htmlmixed/htmlmixed.js", "codemirror/addon/hint/show-hint.js", "codemirror/addon/hint/javascript-hint.js", "codemirror/addon/hint/anyword-hint.js", "codemirror/addon/mode/simple.js", "codemirror/addon/edit/matchbrackets.js", "codemirror/addon/dialog/dialog.js", "codemirror/addon/search/searchcursor.js", "codemirror/addon/search/search.js", "codemirror/keymap/vim.js", "axios.min.js" ];
+                        mods = mods.map(function(it) {
+                            var ret;
+                            ret = it.split(".js")[0];
+                            return ret;
+                        });
+                        return mods;
+                    }
+                    return rs_req.load_amd_list(get_mods(), "");
+                }
+                ՐՏ_modules["load_js"]["load"] = load;
+            })();
+            
+            (function(){
+                var __name__ = "asset.try_html";
+                function mount_js(doc, fs, base) {
+                    var ՐՏitr6, ՐՏidx6;
+                    var s, js_fp, fid;
+                    ՐՏitr6 = ՐՏ_Iterable(doc.getElementsByTagName("script"));
+                    for (ՐՏidx6 = 0; ՐՏidx6 < ՐՏitr6.length; ՐՏidx6++) {
+                        s = ՐՏitr6[ՐՏidx6];
+                        if (s.dataset["dynamic"] === "true") {
+                            ՐՏ_print(s);
+                            js_fp = s.getAttribute("src");
+                            s.removeAttribute("src");
+                            s.setAttribute("type", "text/javascript");
+                            fid = fs.id_by_path(fs.path_join(base, js_fp));
+                            s.innerHTML = "\n//src = " + js_fp + "\n" + fs.files[fid].content;
+                        }
+                    }
+                }
+                function mount_css(doc, fs, base) {
+                    var ՐՏitr7, ՐՏidx7, ՐՏitr8, ՐՏidx8;
+                    var css, css_fp, fid, cmnt, stl_def, cnt, i, styles, stl_el, media, stl_media, tail, prnt_node, stl;
+                    ՐՏitr7 = ՐՏ_Iterable(doc.getElementsByTagName("link"));
+                    for (ՐՏidx7 = 0; ՐՏidx7 < ՐՏitr7.length; ՐՏidx7++) {
+                        css = ՐՏitr7[ՐՏidx7];
+                        if (css.rel && css.dataset["dynamic"] === "true") {
+                            ՐՏ_print(css);
+                            css_fp = css.getAttribute("href");
+                            fid = fs.id_by_path(fs.path_join(base, css_fp));
+                            cmnt = "\n/* src = " + css_fp + "*/\n";
+                            stl_def = fs.files[fid].content;
+                            stl_def = stl_def.trim().split(/^@media(.*){$\n((?:[^}].*$\n)+)}/m);
+                            cnt = stl_def.length;
+                            i = 1;
+                            styles = [];
+                            if (stl_def[0].trim()) {
+                                stl_el = document.createElement("style");
+                                stl_el.innerHTML = stl_def[0];
+                                styles.push(stl_el);
+                            }
+                            while (i < cnt) {
+                                media = stl_def[i].trim();
+                                stl_media = stl_def[i + 1].trim();
+                                tail = stl_def[i + 2];
+                                tail = tail && tail.trim();
+                                if (stl_media) {
+                                    stl_el = document.createElement("style");
+                                    stl_el.innerHTML = cmnt + stl_media;
+                                    if (media) {
+                                        stl_el.setAttribute("media", media);
+                                    }
+                                    styles.push(stl_el);
+                                }
+                                if (tail) {
+                                    stl_el = document.createElement("style");
+                                    stl_el.innerHTML = cmnt + tail;
+                                    styles.push(stl_el);
+                                }
+                                i += 3;
+                            }
+                            if (styles.length) {
+                                prnt_node = css.parentNode;
+                                ՐՏitr8 = ՐՏ_Iterable(styles);
+                                for (ՐՏidx8 = 0; ՐՏidx8 < ՐՏitr8.length; ՐՏidx8++) {
+                                    stl = ՐՏitr8[ՐՏidx8];
+                                    prnt_node.insertBefore(stl, css);
+                                }
+                            }
+                            css.remove();
+                        }
+                    }
+                }
+                function try_html(fname, fs) {
+                    var fid, html, err_listener, d, base, ndoc;
+                    ՐՏ_print("try load: ", fname);
+                    fid = fs.id_by_path(fname);
+                    html = fs.files[fid].content;
+                    err_listener = function(e) {
+                        var tmp;
+                        window.ERR = e;
+                        ՐՏ_print("error", e);
+                        if (e.target.src) {
+                            ՐՏ_print("JS", e.srcElement.src.split("/")[e.srcElement.src.split("/").length-1]);
+                        } else if (e.target.rel) {
+                            tmp = window.location.href.split("/").slice(0, -1).join("/");
+                            ՐՏ_print(tmp);
+                            ՐՏ_print("CSS", e.target.href.split(tmp)[e.target.href.split(tmp).length-1]);
+                        }
+                    };
+                    window.D = d = document.createElement("html");
+                    d.addEventListener("error", err_listener, true);
+                    d.innerHTML = html;
+                    base = fname.split("/").slice(0, -1).join("");
+                    mount_js(d, fs, base);
+                    mount_css(d, fs, base);
+                    ndoc = document.open("text/html", "replace");
+                    ndoc = document.open();
+                    document.write(d.innerHTML);
+                    ndoc.close();
+                }
+                ՐՏ_modules["asset.try_html"]["mount_js"] = mount_js;
+            
+                ՐՏ_modules["asset.try_html"]["mount_css"] = mount_css;
+            
+                ՐՏ_modules["asset.try_html"]["try_html"] = try_html;
+            })();
+            
+            (function(){
+                var __name__ = "asset.fs";
+                var fs_path = ՐՏ_modules["asset.fs_path"];
+                
+                class FS_File {
+                    constructor (fs, name, path) {
+                        var self = this;
+                        self.fs = fs;
+                        self.id = null;
+                        self.name = name;
+                        self.path = path;
+                        slef.content = "";
+                        self.ctime = null;
+                        self.mtime = null;
+                    }
+                    save () {
+                        var self = this;
+                        var f;
+                        if (!self.id) {
+                            self.id = self.fs.create(self.name, self.path);
+                        }
+                        f = self.fs._get_file(self.id);
+                        f.content = self.content;
+                        f.mtime = new Date().valueOf();
+                    }
+                    close () {
+                        var self = this;
+                        if (!self.id) {
+                            throw new Error("Can`t close file with no id");
+                        }
+                        self.id = null;
+                        self.name = "";
+                        self.content = "";
+                        self.path = null;
+                        self.ctime = null;
+                        self.mtime = null;
+                    }
+                }
+                class FS_local_keeper {
+                    constructor (name, zip) {
+                        var self = this;
+                        self.name = name;
+                        self.zip = zip;
+                    }
+                    save (fs_obj) {
+                        var self = this;
+                        function prom(ok, err) {
+                            function store_handler(data) {
+                                window.localStorage.setItem(self.name, data);
+                                ok("done");
+                            }
+                            self.zip.file("fs_store", fs_obj.dumps());
+                            self.zip.generateAsync({
+                                type: "string",
+                                compression: "DEFLATE",
+                                compressionOptions: {
+                                    level: 9
+                                }
+                            }).then(store_handler);
+                        }
+                        return new Promise(prom);
+                    }
+                    load (fs_obj) {
+                        var self = this;
+                        function prom(ok, err) {
+                            var fzip;
+                            function reader(zip) {
+                                zip.file("fs_store").async("string").then(function(s) {
+                                    fs_obj.loads(s);
+                                    ok("done");
+                                });
+                            }
+                            fzip = window.localStorage.getItem(self.name);
+                            if (fzip) {
+                                self.zip.loadAsync(fzip).then(reader);
+                            } else {
+                                err();
+                            }
+                        }
+                        return new Promise(prom);
+                    }
+                }
+                var FS = (ՐՏ_30 = class FS {
+                    constructor () {
+                        var self = this;
+                        self.files = {};
+                        self.dirs = {};
+                        self.dirs[0] = {
+                            id: 0,
+                            name: "",
+                            parent: null,
+                            content: []
+                        };
+                        self.last_id = 0;
+                        self.cwd_id = 0;
+                        self.map_type = {};
+                        self._reset_map_type_();
+                        self._listeners = {
+                            write_file: [],
+                            del_file: []
+                        };
+                        self.fs_path = fs_path;
+                    }
+                    _doubles_in_dir_content () {
+                        var ՐՏitr9, ՐՏidx9, ՐՏitr10, ՐՏidx10;
+                        var self = this;
+                        var errors, dir_id, dir, tmp, it_id;
+                        errors = [];
+                        ՐՏitr9 = ՐՏ_Iterable(self.dirs);
+                        for (ՐՏidx9 = 0; ՐՏidx9 < ՐՏitr9.length; ՐՏidx9++) {
+                            dir_id = ՐՏitr9[ՐՏidx9];
+                            dir = self.dirs[dir_id];
+                            tmp = {};
+                            ՐՏitr10 = ՐՏ_Iterable(dir.content);
+                            for (ՐՏidx10 = 0; ՐՏidx10 < ՐՏitr10.length; ՐՏidx10++) {
+                                it_id = ՐՏitr10[ՐՏidx10];
+                                if (tmp[it_id]) {
+                                    errors.push({
+                                        dir_id: dir_id
+                                    });
+                                }
+                                tmp[it_id] = true;
+                            }
+                        }
+                        return errors.length ? errors : null;
+                    }
+                    _consistency_errors () {
+                        var ՐՏitr11, ՐՏidx11, ՐՏitr12, ՐՏidx12, ՐՏ_31, ՐՏitr13, ՐՏidx13;
+                        var self = this;
+                        var errors, dir_id, dir, it_id, it, f_id, f, parent_dir;
+                        errors = [];
+                        ՐՏitr11 = ՐՏ_Iterable(self.dirs);
+                        for (ՐՏidx11 = 0; ՐՏidx11 < ՐՏitr11.length; ՐՏidx11++) {
+                            dir_id = ՐՏitr11[ՐՏidx11];
+                            dir = self.dirs[dir_id];
+                            ՐՏitr12 = ՐՏ_Iterable(dir.content);
+                            for (ՐՏidx12 = 0; ՐՏidx12 < ՐՏitr12.length; ՐՏidx12++) {
+                                it_id = ՐՏitr12[ՐՏidx12];
+                                it = self.get_info(it_id);
+                                if (((ՐՏ_31 = it.parent) !== dir_id && (typeof ՐՏ_31 !== "object" || !ՐՏ_eq(ՐՏ_31, dir_id)))) {
+                                    errors.push({
+                                        dir_id: dir_id,
+                                        it_id: it_id
+                                    });
+                                }
+                            }
+                        }
+                        ՐՏitr13 = ՐՏ_Iterable(self.files);
+                        for (ՐՏidx13 = 0; ՐՏidx13 < ՐՏitr13.length; ՐՏidx13++) {
+                            f_id = ՐՏitr13[ՐՏidx13];
+                            f = self.files[f_id];
+                            parent_dir = self.dirs[f.parent];
+                            if (ՐՏ_in(!f_id, parent_dir.content)) {
+                                errors.push({
+                                    dir_id: parent_dir.id,
+                                    f_id: f_id
+                                });
+                            }
+                        }
+                        return errors.length ? errors : null;
+                    }
+                    _reset_map_type_ () {
+                        var self = this;
+                        self.map_type[self.FILE] = self.files;
+                        self.map_type[self.DIR] = self.dirs;
+                    }
+                    loads (s) {
+                        var self = this;
+                        var obj;
+                        obj = s;
+                        if (ՐՏ_type(obj) !== "String") {
+                            obj = JSON.stringify(obj);
+                        }
+                        obj = JSON.parse(obj);
+                        self.files = obj.files;
+                        self.dirs = obj.dirs;
+                        self.last_id = obj.last_id;
+                        self._reset_map_type_();
+                    }
+                    dumps () {
+                        var self = this;
+                        var data;
+                        data = {
+                            files: self.files,
+                            dirs: self.dirs,
+                            last_id: self.last_id
+                        };
+                        return JSON.stringify(data);
+                    }
+                    _create_id () {
+                        var self = this;
+                        var id;
+                        id = new Date().valueOf();
+                        while (id <= self.last_id) {
+                            id = new Date().valueOf();
+                        }
+                        self.last_id = id;
+                        return id.toString();
+                    }
+                    _name_to_id (name, parent_id, scope) {
+                        var ՐՏitr14, ՐՏidx14, ՐՏ_32;
+                        var self = this;
+                        var f_d, id;
+                        f_d = typeof scope === "string" ? self[scope] : scope;
+                        ՐՏitr14 = ՐՏ_Iterable(self.dirs[parent_id].content);
+                        for (ՐՏidx14 = 0; ՐՏidx14 < ՐՏitr14.length; ՐՏidx14++) {
+                            id = ՐՏitr14[ՐՏidx14];
+                            if (f_d[id] && ((ՐՏ_32 = f_d[id].name) === name || typeof ՐՏ_32 === "object" && ՐՏ_eq(ՐՏ_32, name))) {
+                                return id;
+                            }
+                        }
+                        return false;
+                    }
+                    _create_zombie_dir (name, parent_id) {
+                        var self = this;
+                        var parent_dir, dir_id;
+                        parent_id = parent_id.toString();
+                        parent_dir = self.dirs[parent_id];
+                        if (!parent_dir) {
+                            throw new Error("Bad parent_id: " + parent_id);
+                        }
+                        if (self._name_to_id(name, parent_id, "dirs")) {
+                            throw new Error("Dir already exists: " + name);
+                        }
+                        dir_id = self._create_id();
+                        self.dirs[dir_id] = {
+                            id: dir_id,
+                            name: name,
+                            parent: parent_id,
+                            content: []
+                        };
+                        return dir_id;
+                    }
+                    is_valid_name (name) {
+                        var self = this;
+                        return fs_path.is_valid_name(name);
+                    }
+                    to_arr (path) {
+                        var self = this;
+                        return fs_path.to_arr(path);
+                    }
+                    get_type (id) {
+                        var self = this;
+                        if (self.files[id]) {
+                            return self.FILE;
+                        }
+                        if (self.dirs[id]) {
+                            return self.DIR;
+                        }
+                        throw new Error("Bad id: " + id);
+                    }
+                    create_dir (name, parent_id) {
+                        var self = this;
+                        var dir_id, parent_dir;
+                        dir_id = self._create_zombie_dir(name, parent_id);
+                        parent_dir = self.dirs[parent_id];
+                        parent_dir.content.push(dir_id);
+                        return dir_id;
+                    }
+                    create_path (path) {
+                        var ՐՏitr15, ՐՏidx15;
+                        var self = this;
+                        var dirs, i, prnt_id, dir_name, dir_id;
+                        dirs = self.to_arr(path);
+                        if (!dirs || dirs[0] !== "") {
+                            throw new Error("bad path: " + path);
+                            return;
+                        }
+                        dirs = dirs.slice(1);
+                        i = 0;
+                        prnt_id = "0";
+                        ՐՏitr15 = ՐՏ_Iterable(dirs);
+                        for (ՐՏidx15 = 0; ՐՏidx15 < ՐՏitr15.length; ՐՏidx15++) {
+                            dir_name = ՐՏitr15[ՐՏidx15];
+                            dir_id = self._name_to_id(dir_name, prnt_id, "dirs");
+                            if (dir_id) {
+                                ++i;
+                                prnt_id = dir_id;
+                            } else {
+                                break;
+                            }
+                        }
+                        while (dirs[i]) {
+                            dir_id = self._create_id();
+                            self.dirs[dir_id] = {
+                                id: dir_id,
+                                name: dirs[i],
+                                parent: prnt_id,
+                                content: []
+                            };
+                            self.dirs[prnt_id].content.push(dir_id);
+                            prnt_id = dir_id;
+                            ++i;
+                        }
+                        return dir_id;
+                    }
+                    create_file (name, dir_id) {
+                        var self = this;
+                        var id, dt;
+                        dir_id = dir_id.toString();
+                        if (!self.dirs[dir_id]) {
+                            throw new Error("Bad dir_id: " + dir_id);
+                        }
+                        if (self._name_to_id(name, dir_id, "files")) {
+                            throw new Error("File already exists: " + name);
+                        }
+                        id = self._create_id();
+                        dt = new Date().valueOf();
+                        self.files[id] = {
+                            id: id,
+                            name: name,
+                            parent: dir_id,
+                            content: "",
+                            ctime: dt,
+                            mtime: dt
+                        };
+                        self.dirs[dir_id].content.push(id);
+                        return id;
+                    }
+                    del_any (id) {
+                        var self = this;
+                        if (self.dirs[id]) {
+                            self.del_dir(id);
+                        } else if (self.files[id]) {
+                            self.del_file(id);
+                        } else {
+                            throw new Error("Bad id: " + id);
+                        }
+                    }
+                    del_file (id) {
+                        var ՐՏitr16, ՐՏidx16;
+                        var self = this;
+                        var f, listener, pdir, idx;
+                        f = self.files[id];
+                        if (!f) {
+                            throw new Error("Bad file_id: " + id);
+                        }
+                        ՐՏitr16 = ՐՏ_Iterable(self._listeners["del_file"]);
+                        for (ՐՏidx16 = 0; ՐՏidx16 < ՐՏitr16.length; ՐՏidx16++) {
+                            listener = ՐՏitr16[ՐՏidx16];
+                            listener(id);
+                        }
+                        pdir = self.dirs[f.parent];
+                        idx = pdir.content.indexOf(id);
+                        pdir.content.splice(idx, 1);
+                        delete self.files[id];
+                    }
+                    del_dir (id) {
+                        var ՐՏitr17, ՐՏidx17;
+                        var self = this;
+                        var d, child_id, pdir, idx;
+                        d = self.dirs[id];
+                        if (!d) {
+                            throw new Error("Bad dir_id: " + id);
+                        }
+                        ՐՏitr17 = ՐՏ_Iterable(d.content.slice(0));
+                        for (ՐՏidx17 = 0; ՐՏidx17 < ՐՏitr17.length; ՐՏidx17++) {
+                            child_id = ՐՏitr17[ՐՏidx17];
+                            if (self.files[child_id]) {
+                                self.del_file(child_id);
+                            } else {
+                                self.del_dir(child_id);
+                            }
+                        }
+                        pdir = self.dirs[d.parent];
+                        idx = pdir.content.indexOf(id);
+                        pdir.content.splice(idx, 1);
+                        delete self.dirs[id];
+                    }
+                    copy_file (src, dst) {
+                        var ՐՏitr18, ՐՏidx18, ՐՏitr19, ՐՏidx19;
+                        var self = this;
+                        var d, f_id, f, p;
+                        src = self.files[src];
+                        dst = self.dirs[dst];
+                        ՐՏitr18 = ՐՏ_Iterable([ src, dst ]);
+                        for (ՐՏidx18 = 0; ՐՏidx18 < ՐՏitr18.length; ՐՏidx18++) {
+                            d = ՐՏitr18[ՐՏidx18];
+                            if (!d) {
+                                throw new Error("Bad dir_id: " + id);
+                            }
+                        }
+                        f_id = self.create_file(src.name, dst.id);
+                        f = self.files[f_id];
+                        ՐՏitr19 = ՐՏ_Iterable([ "content", "mtime" ]);
+                        for (ՐՏidx19 = 0; ՐՏidx19 < ՐՏitr19.length; ՐՏidx19++) {
+                            p = ՐՏitr19[ՐՏidx19];
+                            f[p] = src[p];
+                        }
+                        return f_id;
+                    }
+                    copy_dir (src, dst) {
+                        var ՐՏitr20, ՐՏidx20, ՐՏitr21, ՐՏidx21, ՐՏ_33, ՐՏ_34;
+                        var self = this;
+                        var d, src_content, dir_id, id;
+                        src = self.dirs[src];
+                        dst = self.dirs[dst];
+                        ՐՏitr20 = ՐՏ_Iterable([ src, dst ]);
+                        for (ՐՏidx20 = 0; ՐՏidx20 < ՐՏitr20.length; ՐՏidx20++) {
+                            d = ՐՏitr20[ՐՏidx20];
+                            if (!d) {
+                                throw new Error("Bad dir_id: " + id);
+                            }
+                        }
+                        src_content = src.content.slice(0);
+                        dir_id = self._create_zombie_dir(src.name, dst.id);
+                        ՐՏitr21 = ՐՏ_Iterable(src_content);
+                        for (ՐՏidx21 = 0; ՐՏidx21 < ՐՏitr21.length; ՐՏidx21++) {
+                            id = ՐՏitr21[ՐՏidx21];
+                            if (((ՐՏ_33 = self.get_type(id)) === (ՐՏ_34 = self.DIR) || typeof ՐՏ_33 === "object" && ՐՏ_eq(ՐՏ_33, ՐՏ_34))) {
+                                self.copy_dir(id, dir_id);
+                            } else {
+                                self.copy_file(id, dir_id);
+                            }
+                        }
+                        dst.content.push(dir_id);
+                        return dir_id;
+                    }
+                    copy_any (src, dst) {
+                        var self = this;
+                        if (self.files[src]) {
+                            return self.copy_file(src, dst);
+                        } else if (self.dirs[src]) {
+                            return self.copy_dir(src, dst);
+                        }
+                        throw new Error("Bad src_id: " + id);
+                    }
+                    move (id, dst_dir_id) {
+                        var ՐՏ_35, ՐՏ_36, ՐՏ_37;
+                        var self = this;
+                        var dst_dir, it, up_dir_id, cur_parent_dir, idx;
+                        dst_dir = self.dirs[dst_dir_id];
+                        if (!dst_dir) {
+                            throw new Error("Bad dst_dir_id: " + dst_dir_id);
+                        }
+                        it = self.get_info(id, true);
+                        if (self._name_to_id(it.name, dst_dir_id, self.map_type[it.type])) {
+                            throw new Error("Dir or file already exists in dst_dir: " + it.name);
+                        }
+                        if (((ՐՏ_35 = it.type) === (ՐՏ_36 = self.DIR) || typeof ՐՏ_35 === "object" && ՐՏ_eq(ՐՏ_35, ՐՏ_36))) {
+                            up_dir_id = dst_dir.id;
+                            while (up_dir_id) {
+                                if ((up_dir_id === id || typeof up_dir_id === "object" && ՐՏ_eq(up_dir_id, id))) {
+                                    throw new Error("Can`t move dir into its child");
+                                }
+                                up_dir_id = self.dirs[up_dir_id].parent;
+                            }
+                        }
+                        cur_parent_dir = self.dirs[it.parent];
+                        idx = cur_parent_dir.content.indexOf(it.id);
+                        if ((idx === (ՐՏ_37 = -1) || typeof idx === "object" && ՐՏ_eq(idx, ՐՏ_37))) {
+                            throw new Error("Unexpected error");
+                        }
+                        cur_parent_dir.content.splice(idx, 1);
+                        dst_dir.content.push(it.id);
+                        it.obj.parent = dst_dir.id;
+                    }
+                    rename (id, new_name) {
+                        var self = this;
+                        var it;
+                        it = self.get_info(id, true);
+                        if (self._name_to_id(new_name, it.parent, self.map_type[it.type])) {
+                            throw new Error("Dir or file already exists in dst_dir: " + it.name);
+                        }
+                        it.obj.name = new_name;
+                    }
+                    get_info (id, with_obj) {
+                        var ՐՏ_38;
+                        var self = this;
+                        var type, obj, ret;
+                        type = self.get_type(id);
+                        obj = self.map_type[type][id];
+                        if (!obj) {
+                            throw new Error("Bad id: " + id);
+                        }
+                        ret = {
+                            id: id,
+                            name: obj.name,
+                            parent: obj.parent,
+                            type: type,
+                            mtime: obj.mtime,
+                            ctime: obj.ctime
+                        };
+                        if ((type === (ՐՏ_38 = self.FILE) || typeof type === "object" && ՐՏ_eq(type, ՐՏ_38))) {
+                            ret.md5_hash = obj.md5_hash;
+                        }
+                        if (with_obj) {
+                            ret.obj = obj;
+                        }
+                        return ret;
+                    }
+                    write_file (fid, content) {
+                        var ՐՏitr22, ՐՏidx22;
+                        var self = this;
+                        var f, listener;
+                        if (!self.files[fid]) {
+                            throw new Error("Bad id: " + fid);
+                        }
+                        f = self.files[fid];
+                        f.content = content;
+                        f.mtime = new Date().valueOf();
+                        ՐՏitr22 = ՐՏ_Iterable(self._listeners["write_file"]);
+                        for (ՐՏidx22 = 0; ՐՏidx22 < ՐՏitr22.length; ՐՏidx22++) {
+                            listener = ՐՏitr22[ՐՏidx22];
+                            listener(fid);
+                        }
+                    }
+                    on (event, listener) {
+                        var self = this;
+                        if (!self._listeners[event]) {
+                            throw new Error("unknown event: " + event);
+                        }
+                        self._listeners[event].push(listener);
+                    }
+                    get_file_path (fid) {
+                        var self = this;
+                        var f, parent, ret;
+                        f = self.files[fid];
+                        if (!f) {
+                            throw new Error("Bad file_id: " + fid);
+                        }
+                        parent = self.dirs[f.parent];
+                        ret = [];
+                        while (parent) {
+                            ret.push({
+                                id: parent.id,
+                                name: parent.name
+                            });
+                            parent = self.dirs[parent.parent];
+                        }
+                        ret.reverse();
+                        return ret;
+                    }
+                    list_dir (dir_id) {
+                        var ՐՏitr23, ՐՏidx23;
+                        var self = this;
+                        var ret, id;
+                        if (!self.dirs[dir_id]) {
+                            throw new Error("Bad dir_id: " + dir_id);
+                        }
+                        ret = [];
+                        ՐՏitr23 = ՐՏ_Iterable(self.dirs[dir_id].content);
+                        for (ՐՏidx23 = 0; ՐՏidx23 < ՐՏitr23.length; ՐՏidx23++) {
+                            id = ՐՏitr23[ՐՏidx23];
+                            ret.push(id);
+                        }
+                        return ret;
+                    }
+                    path_arr_resolve (arr) {
+                        var self = this;
+                        return fs_path.path_arr_resolve(arr);
+                    }
+                    path_join () {
+                        var self = this;
+                        return fs_path.path_join.apply(null, arguments);
+                    }
+                    id_by_path (path) {
+                        var ՐՏitr25, ՐՏidx25;
+                        var self = this;
+                        var arr_pth, prnt_id, dir_id, not_found, name, id;
+                        function find_id(name, parent_id) {
+                            var ՐՏitr24, ՐՏidx24, ՐՏ_39;
+                            var id, it;
+                            ՐՏitr24 = ՐՏ_Iterable(self.dirs[parent_id].content);
+                            for (ՐՏidx24 = 0; ՐՏidx24 < ՐՏitr24.length; ՐՏidx24++) {
+                                id = ՐՏitr24[ՐՏidx24];
+                                it = self.dirs[id] || self.files[id];
+                                if (((ՐՏ_39 = it.name) === name || typeof ՐՏ_39 === "object" && ՐՏ_eq(ՐՏ_39, name))) {
+                                    return id;
+                                }
+                            }
+                            return false;
+                        }
+                        if (!path) {
+                            throw new Error("Unexpected path " + path);
+                        }
+                        arr_pth = self.to_arr(path);
+                        if (!arr_pth || ՐՏ_in(!arr_pth[0], [ "", "root" ])) {
+                            throw new Error("bad path: " + path);
+                        }
+                        arr_pth = arr_pth.slice(1);
+                        prnt_id = 0;
+                        dir_id = 0;
+                        not_found = false;
+                        ՐՏitr25 = ՐՏ_Iterable(arr_pth);
+                        for (ՐՏidx25 = 0; ՐՏidx25 < ՐՏitr25.length; ՐՏidx25++) {
+                            name = ՐՏitr25[ՐՏidx25];
+                            id = find_id(name, prnt_id);
+                            if (id) {
+                                prnt_id = id;
+                            } else {
+                                not_found = true;
+                                break;
+                            }
+                        }
+                        if (not_found) {
+                            return null;
+                        }
+                        return id;
+                    }
+                    path_by_id (id, root_alias) {
+                        var self = this;
+                        var ret, parent_id, parent_info;
+                        root_alias = root_alias || "";
+                        ret = {
+                            ids: [],
+                            infos: [],
+                            _path: [],
+                            path: ""
+                        };
+                        id = id.toString();
+                        ret.ids.push(id);
+                        ret.infos.push(self.get_info(id));
+                        ret._path.push(ret.infos[0].name);
+                        parent_id = ret.infos[0].parent;
+                        while (parent_id) {
+                            ret.ids.push(parent_id);
+                            parent_info = self.get_info(parent_id);
+                            ret.infos.push(parent_info);
+                            ret._path.push(parent_info.name);
+                            parent_id = self.dirs[parent_id].parent;
+                        }
+                        ret.ids.reverse();
+                        ret.infos.reverse();
+                        ret._path.reverse();
+                        if (root_alias) {
+                            ret.infos[0].name = root_alias;
+                            ret._path[0] = root_alias;
+                        }
+                        ret.path = ret._path.join("/");
+                        return ret;
+                    }
+                }, (function(){
+                    var FILE = "file";
+                    var DIR = "dir";
+                    Object.defineProperties(ՐՏ_30.prototype, {
+                        FILE: {
+                            enumerable: true, 
+                            writable: true, 
+                            value: FILE
+            
+                        },
+                        DIR: {
+                            enumerable: true, 
+                            writable: true, 
+                            value: DIR
+            
+                        }
+                    });
+                    ;
+                })(), ՐՏ_30);
+                ՐՏ_modules["asset.fs"]["FS_File"] = FS_File;
+            
+                ՐՏ_modules["asset.fs"]["FS_local_keeper"] = FS_local_keeper;
+            
+                ՐՏ_modules["asset.fs"]["FS"] = FS;
+            })();
+            
+            (function(){
+            
+                var __name__ = "__main__";
+            
+                var rs_require = ՐՏ_modules["asset.rs_require"];
+                
+                var rml_mode = ՐՏ_modules["asset.rml_mode"];
+                
+                var cm_python = ՐՏ_modules["asset.cm_python_n"];
+                
+                var load_js = ՐՏ_modules["load_js"];
+                
+                var try_html = ՐՏ_modules["asset.try_html"].try_html;
+                
+                var FS = ՐՏ_modules["asset.fs"].FS;
+                var FS_local_keeper = ՐՏ_modules["asset.fs"].FS_local_keeper;
+                
+                (function() {
+                    var w2p_app_name, js_root_dir, rs_req;
+                    w2p_app_name = "";
+                    js_root_dir = "../static/js/";
+                    if (window.location.hostname) {
+                        js_root_dir = window.location.pathname.split("/", 2).join("/") + "/static/js/";
+                    }
+                    window.rs_req = rs_req = new rs_require.RS_require({
+                        js_root_dir: js_root_dir
+                    });
+                })();
+                rs_req.load_amd("jszip.min", "").then(function(jszip_mod) {
+                    var fs, fs_keeper, args, ret;
+                    fs = new FS();
+                    fs_keeper = new FS_local_keeper("rapydvue_demo", new jszip_mod.exports());
+                    if (window.location.hash) {
+                        args = window.location.hash.split("/");
+                        if (args[0] === "#try") {
+                            ՐՏ_print("restore_fs");
+                            ret = fs_keeper.load(fs).then(function() {
+                                define.amd = false;
+                                try_html("/" + args.slice(1).join("/"), fs);
+                            }).catch(function() {
+                                ՐՏ_print("try load from srv");
+                                rs_req.load_amd("fs_demo", "").then(function(m) {
+                                    define.amd = false;
+                                    fs.loads(m.exports);
+                                    try_html(args.slice(1).join("/"), fs);
+                                });
+                            });
+                        }
+                    } else {
+                        load_js.load(rs_req).then(function() {
+                            return rs_req.load_amd("app_demo", "");
+                        }).then(rs_require.doc_ready).then(function(app_mod) {
+                            start_app(app_mod, fs, fs_keeper);
+                        });
+                    }
+                });
+                function start_app(app_mod, fs, fs_keeper) {
+                    var args, app;
+                    window.app_mod = app_mod = app_mod.exports;
+                    args = window.location.hash.split("/");
+                    app = app_mod.Vue.extend(new app_mod.App());
+                    window.v = new app({
+                        propsData: {
+                            get_fs: function() {
+                                return fs;
+                            },
+                            get_fs_keeper: function() {
+                                return fs_keeper;
+                            }
+                        }
+                    }).$mount("#container");
+                    v.CM.defineMode("cpyj", cm_python.get_mode(v.CM));
+                    v.CM.defineMode("vuepy", rml_mode.get_mode(v.CM), "cpyj");
+                }
+            })();
+            })();
+            
+        </script>
+    </head>
+    <title>
+        Vuepy demo
+    </title>
+    <body>
+        <div  style = 'background-color: black; padding: 5px'>
+            <h2  style = 'margin-left:20px; color:white'>
+                <span  style = 'color: #42b983;'>Vue</span>
+                <span  style = 'color: #009ae6;margin-left:-4px'>p</span>
+                <span  style = 'color: #e2be46;margin-left:-4px'>y</span>
+                IDE demo
+            </h2>
+        </div>
+        <div  style = 'margin-left:20px'>
+            <div  id = "container"></div>
+        </div>
+    </body>
+</html>
