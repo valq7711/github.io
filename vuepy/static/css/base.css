@@ -1,0 +1,379 @@
+/*#---------------------------------< RESET >------------*/
+html{box-sizing:border-box}
+*,*:before,*:after{box-sizing:inherit; border:0; margin:0; padding:0}
+/* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}
+audio,canvas,progress,video{display:inline-block}progress{vertical-align:baseline}
+audio:not([controls]){display:none;height:0}[hidden],template{display:none}
+a{background-color:transparent;-webkit-text-decoration-skip:objects}
+a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}
+dfn{font-style:italic}mark{background:#ff0;color:#000}
+small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sub{bottom:-0.25em}sup{top:-0.5em}figure{margin:1em 40px}img{border-style:none}svg:not(:root){overflow:hidden}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}hr{box-sizing:content-box;height:0;overflow:visible}
+button,input,select,textarea{font:inherit;margin:0}optgroup{font-weight:bold}
+button,input{overflow:visible}button,select{text-transform:none}
+button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}
+button::-moz-focus-inner, [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner{border-style:none;padding:0}
+button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring{outline:1px dotted ButtonText}
+fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}
+legend{color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}
+[type=checkbox],[type=radio]{padding:0}
+[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}
+[type=search]{-webkit-appearance:textfield;outline-offset:-2px}
+[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+::-webkit-input-placeholder{color:inherit;opacity:0.54}
+::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
+/* End extract */
+
+
+@font-face { font-family: Roboto;
+            src: url(../fonts/Roboto-Medium.ttf) format('truetype');
+            font-weight: 500;
+            }
+
+@font-face { font-family: Roboto;
+            src: url(../fonts/Roboto-Regular.ttf) format('truetype');
+            font-weight: normal;
+            }
+
+
+@font-face { font-family: Roboto;
+            src: url(../fonts/Roboto-Bold.ttf) format('truetype');
+            font-weight: bold;
+            }
+
+
+@font-face { font-family: 'Roboto mono';
+            src: url(../fonts/RobotoMono-Medium.ttf) format('truetype');
+            font-weight: 500;
+            }
+
+@font-face { font-family: 'Roboto mono';
+            src: url(../fonts/RobotoMono-Regular.ttf) format('truetype');
+            font-weight: normal;
+            }
+
+
+@font-face { font-family: 'Roboto mono';
+            src: url(../fonts/RobotoMono-Bold.ttf) format('truetype');
+            font-weight: bold;
+            }
+
+
+
+html {
+    font-family : Roboto, sans-serif;
+    font-size : 11pt;
+    color: #606060;
+}
+
+
+
+
+.vl-unsel {
+   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+}
+
+
+.vl-btn{
+    display: block;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    //margin: 0px 2px 0px 2px;
+    box-shadow: black 0px 0px 3px 0px inset, rgb(175, 175, 175) 0px 2px 5px;
+    background-color: #fafafa;
+
+    //text-shadow:  #ffffff 0px 0px 2px;
+    padding: 3px 3px 3px 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+
+ }
+
+div.vl-btn-icon{
+
+    width: 25px;
+    height: 20px;
+    padding: 0px;
+    border-radius: 5px;
+
+ }
+
+
+div.vl-btn-icon i{
+    margin-top: 2px;
+}
+div.vl-btn[disable="no"]:hover{
+    /*color: red; */
+    // background-image: -webkit-linear-gradient(#555555 0% , #ffffff 20%, #ffffff 80%, #555555 100%);
+    box-shadow: black 0px 0px 3px 0px inset, rgb(175, 175, 175) 0px 4px 5px;
+    background-color: #ffffff;
+    color: black;
+ }
+
+ div.vl-btn[disable="no"]:active{
+
+   box-shadow: #000000 0px 0px 4px 1px inset, rgb(175, 175, 175) 0px 1px 5px ;
+   background-color: #ffffff;
+   //background-image: -webkit-linear-gradient(#ffffff 30%, #000000 100%);
+
+ }
+
+ div.vl-btn[disable='yes']{
+   background-color: #efefef;
+   color: #aaaaaa;
+   box-shadow: black 0px 0px 3px 0px inset, rgb(175, 175, 175) 0px 1px 4px;
+   cursor: not-allowed;
+   //background-image: -webkit-linear-gradient(#ffffff 30%, #000000 100%);
+
+ }
+
+
+ div.vl-metall{
+    background-image: -webkit-linear-gradient(#ffffff 30%, #bbbbbb 70%);
+    text-shadow:  #ffffff 0px 0px 2px, #ffffff 0px 1px 1px ;
+
+ }
+
+div.vl-metall[disable="no"]:hover{
+    /*color: red; */
+    background-image: -webkit-linear-gradient(#ffffff 30%, #bbbbbb 60%, #555555 100%);
+    box-shadow: black 0px 0px 3px 0px inset, rgb(175, 175, 175) 0px 4px 5px;
+    color: black;
+ }
+
+div.vl-metall[disable="no"]:active{
+
+   box-shadow: #5f5f5f 0px 0px 3px 1px inset, rgb(175, 175, 175) 0px 1px 5px ;
+   background-image: -webkit-linear-gradient(#ffffff 30%, #000000 100%);
+
+ }
+
+
+
+
+ div.vl-panel{
+    box-sizing: border-box;
+    //overflow: auto;
+    border-radius: 8px;
+    margin: 0px 3px 0px 0px;
+    box-shadow: black 0px 0px 3px 0px inset, rgb(175, 175, 175) 0px 2px 5px;
+    background-color: #fafafa;
+    padding: 3px 3px 3px 3px;
+
+ }
+
+div.vl-panel-hor{
+    height: 100px;
+
+ }
+
+
+div.vl-panel-vert{
+    width: 200px;
+
+ }
+
+
+ div.vl-resizer {
+    position : absolute;
+    bottom : -5px;
+    right : -5px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 5px;
+    width: 10px;
+    height: 10px;
+    box-sizing: border-box;
+ }
+
+ div.vl-mover {
+    position : absolute;
+    top : -5px;
+    left : -5px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 5px;
+    width: 10px;
+    height: 10px;
+    box-sizing: border-box;
+ }
+div.vl-grip {
+    position : absolute;
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 5px;
+    width: 10px;
+    height: 10px;
+    box-sizing: border-box;
+ }
+
+div.vl-hvline {
+    position : absolute;
+    border-style: solid;
+    border-width: 0.5px;
+    width: 1px;
+    height: 1px;
+    box-sizing: border-box;
+ }
+
+
+.vl-tag {
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 2px 5px 2px 5px;
+    cursor: default;
+    font-weight:500;
+    margin: 0px 2px 0px 2px;
+
+ }
+
+ .vl-tag-disabled {
+   color: #aaa;
+ }
+
+.vl-tag i:hover {
+    color: red;
+    cursor: pointer;
+ }
+
+.vl-tag-disabled i:hover {
+    color: inherit;
+    cursor:not-allowed;
+ }
+
+
+.slide-down-enter-active {
+    transition: max-height 0.5s;
+    max-height: 100;
+    overflow-y: hidden;
+}
+
+.slide-down-enter, .slide-down-leave-active{
+    transition: max-height 0.5s;
+    max-height: 0;
+    overflow-y: hidden;
+
+}
+
+.slide-down-leave {
+    max-height: 100;
+    overflow-y: hidden;
+}
+
+
+/*                      table_grid                                          */
+.table_grid, .table_grid th, .table_grid td  {
+    border: solid lightgray 1px;
+    border-collapse: collapse;
+    padding: 2px 6px 2px 6px;
+}
+.table_grid th  {   background-color: #ddd;}
+.table_grid th:not(:last-child){    border-right-color: white; }
+
+
+
+/*---------< folder_content.vuepy >-------------*/
+.folder a, .folder a:visited{
+    text-decoration: none;
+    color: inherit;
+}
+table.folder {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+}
+.folder th{
+    text-align: left;
+}
+.folder tr{
+    height: 25px;
+}
+.folder tr.selected{
+    background-color: #f7f7d0;
+}
+.folder tr.selected:hover{
+    background-color: #e7e7c0;
+}
+.folder tr:hover{
+    background-color: #eee;
+}
+.folder .clickable{
+    cursor: pointer;
+}
+.bar li {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+.bar li:last-child {
+    margin-right: 0px;
+}
+.bar li:hover:not(.hover_off) {
+    box-shadow: 0px 2px 5px gray;
+}
+.inverse {
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+}
+.path li {
+    margin-right: 0px;
+}
+.path li:not(:first-child):before {
+    content: '/';
+    margin-right: 3px;
+}
+/*
+.path li.hover_off {
+    box-shadow: inherit;
+}
+*/
+.path button {
+    padding: 0px 3px;
+    cursor: pointer;
+}
+.path button:hover {
+    box-shadow: 0px 2px 5px gray;
+}
+.path input {
+    border-bottom: solid 1px lightgray;
+    color: gray;
+}
+
+/*---------< editor.vuepy >-------------*/
+.editor_welcome {
+    height: 100%;
+    background-color: #f5f4f4;
+}
+.editor_welcome>div{
+    position:relative;
+    top:40%;
+    text-align:center;
+}
+.editor_up_bar{
+    position: relative;
+    box-shadow: 0 3px 5px #e6e6e6;
+    z-index: 10;
+}
+.editor_up_bar>.doc_title {
+    display: inline-block;
+    min-width: 200px;
+    font-weight: bold;
+    padding: 5px;
+}
