@@ -9964,6 +9964,9 @@ exports.get_import_dirs = function(paths_string, ignore_env) {
 };
 exports.compile = compile = function(code, options) {
     var toplevel, stream;
+    if (browser_env) {
+        parser.init_mod();
+    };
     toplevel = parser.parse(code, utils.defaults(options, {
         toplevel: toplevel,
         output: {}
